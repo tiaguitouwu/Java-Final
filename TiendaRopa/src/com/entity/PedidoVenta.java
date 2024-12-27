@@ -7,22 +7,32 @@ public class PedidoVenta {
     private int id;
     private int idCliente;
     private int idTienda;
-    private LocalDate fechaPedido;
+    private LocalDateTime fechaPedido;
     private int estado;
     private String usuario;
     private LocalDateTime fechaUltModificacion;
+    private String nroPedido;
 
     public PedidoVenta() {
     }
 
-    public PedidoVenta(int id, int idCliente, int idTienda, LocalDate fechaPedido, int estado, String usuario, LocalDateTime fechaUltModificacion) {
+    public PedidoVenta(int id, String nroPedido, int idCliente, int idTienda, LocalDateTime fechaPedido, int estado, String usuario, LocalDateTime fechaUltModificacion) {
         this.id = id;
+        this.nroPedido = nroPedido;
         this.idCliente = idCliente;
         this.idTienda = idTienda;
         this.fechaPedido = fechaPedido;
         this.estado = estado;
         this.usuario = usuario;
         this.fechaUltModificacion = fechaUltModificacion;
+    }
+
+    public String getNroPedido() {
+        return nroPedido;
+    }
+
+    public void setNroPedido(String nroPedido) {
+        this.nroPedido = nroPedido;
     }
 
     public int getId() {
@@ -49,11 +59,11 @@ public class PedidoVenta {
         this.idTienda = idTienda;
     }
 
-    public LocalDate getFechaPedido() {
+    public LocalDateTime getFechaPedido() {
         return fechaPedido;
     }
 
-    public void setFechaPedido(LocalDate fechaPedido) {
+    public void setFechaPedido(LocalDateTime fechaPedido) {
         this.fechaPedido = fechaPedido;
     }
 

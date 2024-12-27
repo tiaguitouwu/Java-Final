@@ -306,6 +306,7 @@ CREATE TABLE Cliente (
 -- Tabla: PedidoVenta
 CREATE TABLE PedidoVenta (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	nropedido varchar(50) NOT NULL,
     idcliente INT UNSIGNED NOT NULL,
     idtienda INT UNSIGNED NOT NULL,
     fechapedido DATE NOT NULL,

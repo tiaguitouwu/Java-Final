@@ -6,15 +6,15 @@ import java.time.LocalDateTime;
 public class Timbrado {
     private int id;
     private int idTipoComprobante;
-    private LocalDate inicioVigencia;
-    private LocalDate finVigencia;
+    private LocalDateTime inicioVigencia;
+    private LocalDateTime finVigencia;
     private String usuario;
     private LocalDateTime fechaUltModificacion;
 
     public Timbrado() {
     }
 
-    public Timbrado(int id, int idTipoComprobante, LocalDate inicioVigencia, LocalDate finVigencia, String usuario, LocalDateTime fechaUltModificacion) {
+    public Timbrado(int id, int idTipoComprobante, LocalDateTime inicioVigencia, LocalDateTime finVigencia, String usuario, LocalDateTime fechaUltModificacion) {
         this.id = id;
         this.idTipoComprobante = idTipoComprobante;
         this.inicioVigencia = inicioVigencia;
@@ -39,19 +39,19 @@ public class Timbrado {
         this.idTipoComprobante = idTipoComprobante;
     }
 
-    public LocalDate getInicioVigencia() {
+    public LocalDateTime getInicioVigencia() {
         return inicioVigencia;
     }
 
-    public void setInicioVigencia(LocalDate inicioVigencia) {
+    public void setInicioVigencia(LocalDateTime inicioVigencia) {
         this.inicioVigencia = inicioVigencia;
     }
 
-    public LocalDate getFinVigencia() {
+    public LocalDateTime getFinVigencia() {
         return finVigencia;
     }
 
-    public void setFinVigencia(LocalDate finVigencia) {
+    public void setFinVigencia(LocalDateTime finVigencia) {
         this.finVigencia = finVigencia;
     }
 

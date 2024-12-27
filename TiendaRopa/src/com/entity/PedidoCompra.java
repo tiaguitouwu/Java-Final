@@ -8,7 +8,7 @@ public class PedidoCompra {
     private String nroPedido;
     private int idProveedor;
     private int idTienda;
-    private LocalDate fechaPedido;
+    private LocalDateTime fechaPedido;
     private int estado;
     private String usuario;
     private LocalDateTime fechaUltModificacion;
@@ -16,7 +16,7 @@ public class PedidoCompra {
     public PedidoCompra() {
     }
 
-    public PedidoCompra(int id, String nroPedido, int idProveedor, int idTienda, LocalDate fechaPedido, int estado, String usuario, LocalDateTime fechaUltModificacion) {
+    public PedidoCompra(int id, String nroPedido, int idProveedor, int idTienda, LocalDateTime fechaPedido, int estado, String usuario, LocalDateTime fechaUltModificacion) {
         this.id = id;
         this.nroPedido = nroPedido;
         this.idProveedor = idProveedor;
@@ -59,11 +59,11 @@ public class PedidoCompra {
         this.idTienda = idTienda;
     }
 
-    public LocalDate getFechaPedido() {
+    public LocalDateTime getFechaPedido() {
         return fechaPedido;
     }
 
-    public void setFechaPedido(LocalDate fechaPedido) {
+    public void setFechaPedido(LocalDateTime fechaPedido) {
         this.fechaPedido = fechaPedido;
     }
 

@@ -7,10 +7,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.sql.ResultSet;
 import java.util.List;
-import com.repository.BaseRepository;
 import com.repository.ConnectionManager;
+import java.util.Optional;
 
-public class RopaRepository implements BaseRepository<Ropa> {
+public class RopaRepository implements IRopaRepository {
     private final Connection connection;
 
     public RopaRepository() {
@@ -31,7 +31,7 @@ public class RopaRepository implements BaseRepository<Ropa> {
     }
 
     @Override
-    public Ropa findById(int id) throws SQLException {
+    public Optional<Ropa> findById(int id) throws SQLException {
         String sql = "SELECT * FROM Ropa WHERE id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, id);
@@ -44,11 +44,13 @@ public class RopaRepository implements BaseRepository<Ropa> {
                     ropa.setIdCategoria(rs.getInt("idcategoria"));
                     ropa.setUsuario(rs.getString("usuario"));
                     ropa.setFechaUltModificacion(rs.getTimestamp("fechaultmodificacion").toLocalDateTime());
-                    return ropa;
+                    return Optional.of(ropa);
                 }
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        return null;
+        return Optional.empty();
     }
 
     @Override

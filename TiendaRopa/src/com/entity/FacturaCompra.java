@@ -1,12 +1,11 @@
 package com.entity;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class FacturaCompra {
     private int id;
     private int idPedidoCompra;
-    private LocalDate fechaFactura;
+    private LocalDateTime fechaFactura;
     private int idTimbrado;
     private int estado;
     private String usuario;
@@ -15,7 +14,7 @@ public class FacturaCompra {
     public FacturaCompra(){
     }
 
-    public FacturaCompra(int id, int idPedidoCompra, LocalDate fechaFactura, int idTimbrado, int estado, String usuario, LocalDateTime fechaUltModificacion) {
+    public FacturaCompra(int id, int idPedidoCompra, LocalDateTime fechaFactura, int idTimbrado, int estado, String usuario, LocalDateTime fechaUltModificacion) {
         this.id = id;
         this.idPedidoCompra = idPedidoCompra;
         this.fechaFactura = fechaFactura;
@@ -41,11 +40,11 @@ public class FacturaCompra {
         this.idPedidoCompra = idPedidoCompra;
     }
 
-    public LocalDate getFechaFactura() {
+    public LocalDateTime getFechaFactura() {
         return fechaFactura;
     }
 
-    public void setFechaFactura(LocalDate fechaFactura) {
+    public void setFechaFactura(LocalDateTime fechaFactura) {
         this.fechaFactura = fechaFactura;
     }
 
