@@ -42,14 +42,22 @@ public class Inicio extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         cargarStock = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenu6 = new javax.swing.JMenu();
+        jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem9 = new javax.swing.JMenuItem();
+        jMenuItem10 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Gestión Tienda Ropa");
+        setAutoRequestFocus(false);
         setForeground(java.awt.Color.white);
+        setResizable(false);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/resources/fondoApp2.jpg"))); // NOI18N
+        jLabel1.setFocusable(false);
 
         jMenu1.setLabel("Venta");
 
@@ -93,8 +101,15 @@ public class Inicio extends javax.swing.JFrame {
         jMenuItem3.setText("Stock");
         cargarStock.add(jMenuItem3);
 
-        jMenuItem2.setText("Articulos");
-        cargarStock.add(jMenuItem2);
+        jMenu6.setText("Articulos");
+
+        jMenuItem7.setText("Articulo");
+        jMenu6.add(jMenuItem7);
+
+        jMenuItem8.setText("Categoria");
+        jMenu6.add(jMenuItem8);
+
+        cargarStock.add(jMenu6);
 
         jMenuBar1.add(cargarStock);
 
@@ -102,6 +117,12 @@ public class Inicio extends javax.swing.JFrame {
 
         jMenuItem6.setText("Sucursales");
         jMenu3.add(jMenuItem6);
+
+        jMenuItem9.setText("Comprobantes");
+        jMenu3.add(jMenuItem9);
+
+        jMenuItem10.setText("Timbrados");
+        jMenu3.add(jMenuItem10);
 
         jMenuBar1.add(jMenu3);
 
@@ -147,12 +168,16 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
     // End of variables declaration//GEN-END:variables
 }
