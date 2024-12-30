@@ -42,6 +42,9 @@
                 <Property name="text" type="java.lang.String" value="Pedidos"/>
                 <Property name="actionCommand" type="java.lang.String" value="Pedido"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cargarCompraActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem5">
               <Properties>
@@ -67,6 +70,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Stock"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem3ActionPerformed"/>
+              </Events>
             </MenuItem>
             <Menu class="javax.swing.JMenu" name="jMenu6">
               <Properties>
