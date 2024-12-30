@@ -10,7 +10,7 @@ import java.util.Optional;
 public class DetallePedidoVentaService {
     private final IDetallePedidoVentaRepository repository;
 
-    public DetallePedidoVentaService() {
+    public DetallePedidoVentaService(DetallePedidoVentaRepository detallePedidoVentaRepository) {
         this.repository = new DetallePedidoVentaRepository();
     }
     

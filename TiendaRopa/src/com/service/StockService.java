@@ -10,7 +10,7 @@ import java.util.Optional;
 public class StockService {
     private final IStockRepository repository;
 
-    public StockService() {
+    public StockService(StockRepository stockRepository) {
         this.repository = new StockRepository();
     }
     

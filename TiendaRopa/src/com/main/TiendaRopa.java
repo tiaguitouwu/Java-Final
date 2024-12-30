@@ -4,6 +4,9 @@
  */
 package com.main;
 
+import com.controllers.CategoriaController;
+import com.repository.Categoria.CategoriaRepository;
+import com.service.CategoriaService;
 import com.view.Inicio;
 
 /**
@@ -45,6 +48,10 @@ public class TiendaRopa {
                 new Inicio().setVisible(true);
             }
         });
+        
+        CategoriaRepository categoriaRepository = new CategoriaRepository();
+        CategoriaService categoriaService = new CategoriaService(categoriaRepository);
+        CategoriaController categoriaController = new CategoriaController(categoriaService);
     }
     
 }

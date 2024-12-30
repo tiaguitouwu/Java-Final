@@ -10,7 +10,7 @@ import java.util.Optional;
 public class ProveedorService {
     private final IProveedorRepository repository;
 
-    public ProveedorService() {
+    public ProveedorService(ProveedorRepository proveedorRepository) {
         this.repository = new ProveedorRepository();
     }
     

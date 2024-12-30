@@ -10,7 +10,7 @@ import java.util.Optional;
 public class TallaService {
     private final ITallaRepository repository;
 
-    public TallaService() {
+    public TallaService(TallaRepository tallaRepository) {
         this.repository = new TallaRepository();
     }
     
