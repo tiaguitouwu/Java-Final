@@ -89,6 +89,11 @@ public class Inicio extends javax.swing.JFrame {
         jMenu2.add(cargarCompra);
 
         jMenuItem5.setText("Factura");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem5);
 
         jMenuItem1.setText("Proveedores");
@@ -173,6 +178,11 @@ public class Inicio extends javax.swing.JFrame {
         CargaSucursal sucursales = new CargaSucursal();
         sucursales.show();
     }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        CargarFacturaCompras facturaCompra = new CargarFacturaCompras();
+        facturaCompra.show();
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     /**
      * @param args the command line arguments
