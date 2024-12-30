@@ -10,7 +10,7 @@ import java.util.Optional;
 public class TimbradoService {
     private final ITimbradoRepository repository;
 
-    public TimbradoService() {
+    public TimbradoService(TimbradoRepository timbradoRepository) {
         this.repository = new TimbradoRepository();
     }
     

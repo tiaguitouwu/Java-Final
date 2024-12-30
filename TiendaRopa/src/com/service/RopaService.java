@@ -10,7 +10,7 @@ import java.util.Optional;
 public class RopaService {
     private final IRopaRepository repository;
 
-    public RopaService() {
+    public RopaService(RopaRepository ropaRepository) {
         this.repository = new RopaRepository();
     }
     

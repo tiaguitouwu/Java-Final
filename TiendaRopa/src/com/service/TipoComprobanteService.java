@@ -10,7 +10,7 @@ import java.util.Optional;
 public class TipoComprobanteService {
     private final ITipoComprobanteRepository repository;
 
-    public TipoComprobanteService() {
+    public TipoComprobanteService(TipoComprobanteRepository tipoComprobanteRepository) {
         this.repository = new TipoComprobanteRepository();
     }
     
