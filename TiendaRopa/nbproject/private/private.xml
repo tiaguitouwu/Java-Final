@@ -3,12 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/tiago/Desktop/Projects/FinalJavaUAA/TiendaRopa/src/com/repository/ConnectionManager.java</file>
-            <file>file:/C:/Users/tiago/Desktop/Projects/FinalJavaUAA/TiendaRopa/src/com/controllers/CategoriaController.java</file>
-            <file>file:/C:/Users/tiago/Desktop/Projects/FinalJavaUAA/TiendaRopa/src/com/repository/Categoria/CategoriaRepository.java</file>
-            <file>file:/C:/Users/tiago/Desktop/Projects/FinalJavaUAA/TiendaRopa/src/com/main/TiendaRopa.java</file>
-            <file>file:/C:/Users/tiago/Desktop/Projects/FinalJavaUAA/TiendaRopa/src/com/view/CargarPedidoVenta.java</file>
-            <file>file:/C:/Users/tiago/Desktop/Projects/FinalJavaUAA/TiendaRopa/src/com/view/Inicio.java</file>
+            <file>file:/C:/Users/Jen/Desktop/java/Java-Final/TiendaRopa/src/com/view/CargarSucursales.java</file>
+            <file>file:/C:/Users/Jen/Desktop/java/Java-Final/TiendaRopa/src/com/entity/Tienda.java</file>
+            <file>file:/C:/Users/Jen/Desktop/java/Java-Final/TiendaRopa/src/com/view/Inicio.java</file>
+            <file>file:/C:/Users/Jen/Desktop/java/Java-Final/TiendaRopa/src/com/view/CargarCategoria.java</file>
         </group>
     </open-files>
 </project-private>

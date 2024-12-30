@@ -107,6 +107,11 @@ public class Inicio extends javax.swing.JFrame {
         jMenu6.add(jMenuItem7);
 
         jMenuItem8.setText("Categoria");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
         jMenu6.add(jMenuItem8);
 
         cargarStock.add(jMenu6);
@@ -116,6 +121,11 @@ public class Inicio extends javax.swing.JFrame {
         jMenu3.setText("Gestión Tiendas");
 
         jMenuItem6.setText("Sucursales");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem6);
 
         jMenuItem9.setText("Comprobantes");
@@ -153,6 +163,16 @@ public class Inicio extends javax.swing.JFrame {
         CargarFacturaVenta facturaVenta = new CargarFacturaVenta();
         facturaVenta.show();
     }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        CargarCategoria categoria = new CargarCategoria();
+        categoria.show();
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        CargaSucursal sucursales = new CargaSucursal();
+        sucursales.show();
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     /**
      * @param args the command line arguments
