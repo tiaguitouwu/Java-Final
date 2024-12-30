@@ -4,7 +4,13 @@
  */
 package com.main;
 
+import com.view.ArticuloCRUD;
+import com.view.ClienteCRUD;
 import com.view.Inicio;
+import com.view.ProveedorCRUD;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -42,9 +48,10 @@ public class TiendaRopa {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Inicio().setVisible(true);
+                new ArticuloCRUD().setVisible(true);
             }
         });
     }
     
 }
+
