@@ -10,7 +10,7 @@ import java.util.Optional;
 public class CategoriaService {
     private final ICategoriaRepository repository;
 
-    public CategoriaService() {
+    public CategoriaService(CategoriaRepository categoriaRepository) {
         this.repository = new CategoriaRepository();
     }
     

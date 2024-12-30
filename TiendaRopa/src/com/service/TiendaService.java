@@ -10,7 +10,7 @@ import java.util.Optional;
 public class TiendaService {
     private final ITiendaRepository repository;
 
-    public TiendaService() {
+    public TiendaService(TiendaRepository tiendaRepository) {
         this.repository = new TiendaRepository();
     }
     
