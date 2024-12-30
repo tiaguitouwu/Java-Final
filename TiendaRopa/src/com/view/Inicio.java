@@ -86,6 +86,11 @@ public class Inicio extends javax.swing.JFrame {
 
         cargarCompra.setText("Pedidos");
         cargarCompra.setActionCommand("Pedido");
+        cargarCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cargarCompraActionPerformed(evt);
+            }
+        });
         jMenu2.add(cargarCompra);
 
         jMenuItem5.setText("Factura");
@@ -99,6 +104,11 @@ public class Inicio extends javax.swing.JFrame {
         cargarStock.setLabel("Inventario");
 
         jMenuItem3.setText("Stock");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         cargarStock.add(jMenuItem3);
 
         jMenu6.setText("Articulos");
@@ -153,6 +163,17 @@ public class Inicio extends javax.swing.JFrame {
         CargarFacturaVenta facturaVenta = new CargarFacturaVenta();
         facturaVenta.show();
     }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        Stock1 articulo = new Stock1();
+        articulo.show();
+                
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void cargarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargarCompraActionPerformed
+    CargarPedidoCompra compra = new CargarPedidoCompra (); 
+        compra.show();// TODO add your handling code here:
+    }//GEN-LAST:event_cargarCompraActionPerformed
 
     /**
      * @param args the command line arguments
