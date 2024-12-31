@@ -3,9 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package com.main;
-
-import com.view.ArticuloCRUD;
-import com.view.ClienteCRUD;
 import com.view.Inicio;
 import com.view.ProveedorCRUD;
 import java.sql.SQLException;
@@ -48,9 +45,10 @@ public class TiendaRopa {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ArticuloCRUD().setVisible(true);
+                new Inicio().setVisible(true);
             }
         });
+        
     }
     
 }
