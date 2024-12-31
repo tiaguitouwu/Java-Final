@@ -32,10 +32,6 @@ public class Inicio extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        cargaVenta = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        cargarCliente = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         cargarCompra = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
@@ -64,29 +60,6 @@ public class Inicio extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/resources/fondoApp2.jpg"))); // NOI18N
         jLabel1.setFocusable(false);
-
-        jMenu1.setLabel("Venta");
-
-        cargaVenta.setText("Pedidos");
-        cargaVenta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cargaVentaActionPerformed(evt);
-            }
-        });
-        jMenu1.add(cargaVenta);
-
-        jMenuItem4.setText("Factura");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenuItem4);
-
-        cargarCliente.setText("Clientes");
-        jMenu1.add(cargarCliente);
-
-        jMenuBar1.add(jMenu1);
 
         jMenu2.setLabel("Compra");
 
@@ -219,16 +192,6 @@ public class Inicio extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cargaVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargaVentaActionPerformed
-        CargarPedidoVenta pedidoVenta = new CargarPedidoVenta();
-        pedidoVenta.show();
-    }//GEN-LAST:event_cargaVentaActionPerformed
-
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        CargarFacturaVenta facturaVenta = new CargarFacturaVenta();
-        facturaVenta.show();
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
-
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
         CargarCategoria categoria = new CargarCategoria();
         categoria.show();
@@ -285,12 +248,9 @@ public class Inicio extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem cargaVenta;
-    private javax.swing.JMenuItem cargarCliente;
     private javax.swing.JMenuItem cargarCompra;
     private javax.swing.JMenu cargarStock;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
@@ -304,7 +264,6 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
