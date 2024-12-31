@@ -6,10 +6,12 @@ import java.sql.SQLException;
 
 public class ConnectionManager {
     private static final String URL = "jdbc:mysql://database.tiagomartinez.xyz:3306/tiendaropa";
+
     private static final String USER = "app_connect";
     private static final String PASSWORD = "app_connect";
     
     
+
     public static Connection getConnection() {
         Connection conn;
         try {

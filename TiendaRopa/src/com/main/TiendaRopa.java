@@ -3,11 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package com.main;
-
-import com.controllers.CategoriaController;
-import com.repository.Categoria.CategoriaRepository;
-import com.service.CategoriaService;
 import com.view.Inicio;
+import com.view.ProveedorCRUD;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -49,9 +49,7 @@ public class TiendaRopa {
             }
         });
         
-        CategoriaRepository categoriaRepository = new CategoriaRepository();
-        CategoriaService categoriaService = new CategoriaService(categoriaRepository);
-        CategoriaController categoriaController = new CategoriaController(categoriaService);
     }
     
 }
+
