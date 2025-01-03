@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.view;
+import com.controllers.RopaController;
 import com.controllers.StockController;
 import com.entity.Stock;
 import com.repository.Stock.StockRepository;
@@ -37,6 +38,8 @@ public class StockPantalla extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TableStock = new javax.swing.JTable();
@@ -51,6 +54,19 @@ public class StockPantalla extends javax.swing.JFrame {
         TxtCantidad = new javax.swing.JTextField();
         Cantidad1 = new javax.swing.JLabel();
         TxtSucursal = new javax.swing.JTextField();
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -100,13 +116,13 @@ public class StockPantalla extends javax.swing.JFrame {
             }
         });
 
-        TxtRopa.setText("IdRopa");
+        TxtRopa.setText("Id");
 
-        Articulo.setText("Articulo");
+        Articulo.setText("Id Articulo");
 
         Cantidad.setText("Cantidad");
 
-        Cantidad1.setText("Sucursal");
+        Cantidad1.setText("Id Sucursal");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -130,24 +146,24 @@ public class StockPantalla extends javax.swing.JFrame {
                             .addComponent(Articulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(Cantidad, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
                             .addComponent(Cantidad1, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                        .addGap(18, 18, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(TxtId, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
                             .addComponent(TxtArticulo)
                             .addComponent(TxtCantidad)
                             .addComponent(TxtSucursal))))
-                .addContainerGap(13, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 276, Short.MAX_VALUE)
+                .addContainerGap(9, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(304, 304, 304)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(333, 333, 333))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addGap(29, 29, 29)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46)
+                .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
@@ -162,10 +178,10 @@ public class StockPantalla extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(Cantidad)
                             .addComponent(TxtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(TxtSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Cantidad1))))
+                        .addGap(15, 15, 15)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Cantidad1)
+                            .addComponent(TxtSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(51, 51, 51)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -178,6 +194,8 @@ public class StockPantalla extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
         try {
@@ -185,23 +203,22 @@ public class StockPantalla extends javax.swing.JFrame {
             int idRopa = Integer.parseInt(TxtId.getText().trim());
             String articulo = TxtArticulo.getText().trim();
 
-
             // Validación de cantidad
             int cantidad = Integer.parseInt(TxtCantidad.getText().trim());
             if (cantidad <= 0) {
                 JOptionPane.showMessageDialog(null, "La cantidad debe ser mayor a cero.", "Error", JOptionPane.ERROR_MESSAGE);
-                return; // Salimos del método
+                return;
             }
 
             // Validación de sucursal
             String sucursal = TxtSucursal.getText().trim();
             if (sucursal.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "El campo Sucursal no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
-                return; // Salimos del método
+                return; 
             }
 
-            stockController.crearStock(Integer.valueOf(TxtSucursal.getText()), Integer.valueOf(TxtRopa.getText()), Integer.valueOf(TxtCantidad.getText()));
-
+            stockController.crearStock(Integer.valueOf(TxtSucursal.getText()), Integer.valueOf(TxtArticulo.getText()), Integer.valueOf(TxtCantidad.getText()));
+            cargarTabla();
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Por favor, ingrese valores numéricos válidos en los campos IDRopa, sucursal y Cantidad.", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -210,38 +227,36 @@ public class StockPantalla extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        stockController.actualizarStock(Integer.valueOf(TxtId.getText()),Integer.valueOf(TxtSucursal.getText()), Integer.valueOf(TxtRopa.getText()), Integer.valueOf(TxtCantidad.getText()));
+       stockController.actualizarStock(Integer.valueOf(TxtId.getText()),Integer.valueOf(TxtSucursal.getText()), Integer.valueOf(TxtArticulo.getText()), Integer.valueOf(TxtCantidad.getText()));
+       cargarTabla();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         stockController.eliminarStock(Integer.valueOf(TxtId.getText()));
+        cargarTabla();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void cargarTabla() {
-        List<Stock> tiendaList = stockController.listarStock();  // Get the list of Tiendas
+        List<Stock> tiendaList = stockController.listarStock();  
 
-        // Check if the list is not empty
         if (tiendaList.isEmpty()) {
             return;
         }
 
-        // Column names for the table
-        String[] columnNames = {"ID", "Descripción", "Usuario", "Fecha de Modificación"};
+        String[] columnNames = {"ID", "ID Ropa", "Cantidad Stock", "Tienda", "Fecha Mod."};
 
-        // Create the table model
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
 
-        // Iterate over the list of Tiendas and add rows to the table model
         for (Stock tienda : tiendaList) {
             model.addRow(new Object[]{
                     tienda.getId(),
-                    tienda.getIdTienda(),
                     tienda.getIdRopa(),
+                    tienda.getCantidadExistencia(),
+                    tienda.getIdTienda(),
                     tienda.getFechaUltModificacion()
             });
         }
 
-        // Set the table model to jTable1
         TableStock.setModel(model);
     }
     
@@ -266,5 +281,7 @@ public class StockPantalla extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

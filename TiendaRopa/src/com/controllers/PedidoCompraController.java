@@ -52,7 +52,7 @@ public class PedidoCompraController {
     public void eliminarPedidoCompra(int id) {
         try {
             pedidoCompraService.delete(id);
-            System.out.println("Tienda eliminada exitosamente.");
+            System.out.println("Pedido eliminado exitosamente.");
         } catch (SQLException | IllegalArgumentException e) {
             System.err.println("Error al eliminar"+ e.getMessage());
         }
