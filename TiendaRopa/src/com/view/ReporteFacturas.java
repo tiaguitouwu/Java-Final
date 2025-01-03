@@ -4,17 +4,29 @@
  */
 package com.view;
 
+import com.entity.FacturaCompra;
+import com.repository.FacturaCompra.FacturaCompraRepository;
+import com.service.FacturaCompraService;
+import java.util.List;
+import java.util.Optional;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Jen
  */
 public class ReporteFacturas extends javax.swing.JFrame {
 
+    FacturaCompraRepository facturaRepository = new FacturaCompraRepository();
+    FacturaCompraService facturaService = new FacturaCompraService(facturaRepository);
+    FacturaCompraController facturaController = new FacturaCompraController(facturaService);
     /**
      * Creates new form ReporteProductos
      */
     public ReporteFacturas() {
         initComponents();
+        cargarTabla();
     }
 
     /**
@@ -60,6 +72,12 @@ public class ReporteFacturas extends javax.swing.JFrame {
 
         jLabel1.setText("ID Factura");
 
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField1KeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -96,6 +114,65 @@ public class ReporteFacturas extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
+         if (evt.getKeyCode() == evt.VK_ENTER) {
+        String inputText = jTextField1.getText().trim();
+        
+            if (inputText.isEmpty()) {
+                cargarTabla();
+            } else {
+                try {
+                    int facturaId = Integer.parseInt(inputText); 
+
+                    Optional<FacturaCompra> facturaOpt = facturaController.obtenerFactura(facturaId);
+                    facturaOpt.ifPresentOrElse(factura -> {
+                        String[] columnNames = {"ID", "ID Pedido", "Fecha", "Estado", "Usuario", "Fecha Mod."};
+
+                        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+
+                        model.addRow(new Object[]{
+                            factura.getId(),
+                            factura.getIdPedidoCompra(),
+                            factura.getFechaFactura(),
+                            factura.getEstado(),
+                            factura.getUsuario(),
+                            factura.getFechaUltModificacion()
+                        });
+
+                        jTable1.setModel(model);
+                    }, () -> {
+                        JOptionPane.showMessageDialog(null, "Factura no encontrada");
+                    });
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "Por favor, ingrese un ID válido");
+                }
+            }
+        }
+    }//GEN-LAST:event_jTextField1KeyPressed
+
+    public void cargarTabla(){
+        List<FacturaCompra> facturaList = facturaController.listarFactura();
+        if (facturaList.isEmpty()) {
+            return;
+        }
+        String[] columnNames = {"ID", "ID Pedido", "Fecha", "Estado", "Usuario", "Fecha Mod."};
+
+        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+
+        for (FacturaCompra factura : facturaList) {
+            model.addRow(new Object[]{
+                    factura.getId(),
+                    factura.getIdPedidoCompra(),
+                    factura.getFechaFactura(),
+                    factura.getEstado(),
+                    factura.getUsuario(),
+                    factura.getFechaUltModificacion()
+            });
+        }
+
+        // Set the table model to jTable1
+        jTable1.setModel(model);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

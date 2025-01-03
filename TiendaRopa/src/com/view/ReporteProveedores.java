@@ -4,12 +4,24 @@
  */
 package com.view;
 
+import com.controllers.ProveedorController;
+import com.entity.Proveedor;
+import com.repository.Proveedor.ProveedorRepository;
+import com.service.ProveedorService;
+import java.util.List;
+import java.util.Optional;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Jen
  */
 public class ReporteProveedores extends javax.swing.JFrame {
 
+    ProveedorRepository proveedorRepository = new ProveedorRepository();
+    ProveedorService proveedorService = new ProveedorService(proveedorRepository);
+    ProveedorController proveedorController = new ProveedorController(proveedorService);
     /**
      * Creates new form ReporteProductos
      */
@@ -60,6 +72,12 @@ public class ReporteProveedores extends javax.swing.JFrame {
 
         jLabel1.setText("ID Proveedor");
 
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField1KeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -95,6 +113,67 @@ public class ReporteProveedores extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
+       if (evt.getKeyCode() == evt.VK_ENTER) {
+        String inputText = jTextField1.getText().trim();
+        
+        if (inputText.isEmpty()) {
+            cargarTabla();
+        } else {
+            try {
+                int proveedorId = Integer.parseInt(inputText); 
+                
+                Optional<Proveedor> clienteOpt = proveedorController.obtenerProveedor(proveedorId);
+                clienteOpt.ifPresentOrElse(proveedor -> {
+                    String[] columnNames = {"ID", "Razón Social", "Nombre", "Apellido", "RUC", "Usuario", "Fecha Mod."};
+
+                    DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+
+                    model.addRow(new Object[]{
+                        proveedor.getId(),
+                        proveedor.getRazonSocial(),
+                        proveedor.getNombre(),
+                        proveedor.getApellido(),
+                        proveedor.getRuc(),
+                        proveedor.getUsuario(),
+                        proveedor.getFechaUltModificacion()
+                    });
+
+                    jTable1.setModel(model);
+                }, () -> {
+                    JOptionPane.showMessageDialog(null, "Proveedor no encontrado");
+                });
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Por favor, ingrese un ID válido");
+            }
+        }
+    }
+    }//GEN-LAST:event_jTextField1KeyPressed
+
+    public void cargarTabla(){
+        List<Proveedor> proveedorList = proveedorController.listarProveedor();
+        if (proveedorList.isEmpty()) {
+            return;
+        }
+        String[] columnNames = {"ID", "Razón Social", "Nombre", "Apellido", "RUC" , "Usuario", "Fecha Mod."};
+
+        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+
+        for (Proveedor proveedor : proveedorList) {
+            model.addRow(new Object[]{
+                    proveedor.getId(),
+                    proveedor.getRazonSocial(),
+                    proveedor.getNombre(),
+                    proveedor.getApellido(),
+                    proveedor.getRuc(),
+                    proveedor.getUsuario(),
+                    proveedor.getFechaUltModificacion()
+            });
+        }
+
+        // Set the table model to jTable1
+        jTable1.setModel(model);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
