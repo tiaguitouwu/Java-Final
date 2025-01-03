@@ -23,6 +23,7 @@ public class CategoriaController {
             categoria.setFechaUltModificacion(java.time.LocalDateTime.now());
 
             categoriaService.add(categoria);
+            JOptionPane.showMessageDialog(null, "Categoria creada exitosamente.");
             System.out.println("Categoría creada exitosamente.");
         } catch (SQLException | IllegalArgumentException e) {
             System.err.println("Error al crear la categoría: " + e.getMessage());
@@ -57,10 +58,10 @@ public class CategoriaController {
         try {
             Categoria cat = new Categoria(id, descripcion, "AppUser", java.time.LocalDateTime.now());
             categoriaService.update(cat);
-            JOptionPane.showMessageDialog(null, "Tienda creada exitosamente.");
+            JOptionPane.showMessageDialog(null, "Categoría actualizada exitosamente.");
         } catch (SQLException e) {
             System.err.println("Error al actualizar la tienda: " + e.getMessage());
-            JOptionPane.showMessageDialog(null, "Error al actualizar la tienda:");
+            JOptionPane.showMessageDialog(null, "Error al actualizar la categoría:");
         }
     }
     

@@ -268,34 +268,45 @@ public class CargarRopa extends javax.swing.JFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         ropaController.eliminarCategoria(Integer.valueOf(txtId.getText()));
+        cargarTabla();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void txtBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyPressed
         if (evt.getKeyCode() == evt.VK_ENTER) {
-            Optional<Ropa> tiendaOpt = ropaController.obtenerCategoria(Integer.valueOf(txtBuscar.getText()));  // Get Tienda by ID
+        String inputText = txtBuscar.getText().trim();
 
-            tiendaOpt.ifPresentOrElse(ropa -> {
-            String[] columnNames = {"ID", "Descripción", "Usuario", "Fecha de Modificación"};
-            DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+        if (inputText.isEmpty()) {
+            cargarTabla();
+        } else {
+            try {
+                int ropaId = Integer.parseInt(inputText);
 
-            model.addRow(new Object[]{
-                    ropa.getId(),
-                    ropa.getDescripcion(),
-                    ropa.getIdTalla(),
-                    ropa.getFechaUltModificacion()
-            });
+                Optional<Ropa> ropaOpt = ropaController.obtenerCategoria(ropaId);
 
-            tbArticulo.setModel(model);
+                ropaOpt.ifPresentOrElse(ropa -> {
+                    String[] columnNames = {"ID", "Descripción", "Talla", "Fecha de Modificación"};
+                    DefaultTableModel model = new DefaultTableModel(columnNames, 0);
 
+                    model.addRow(new Object[]{
+                        ropa.getId(),
+                        ropa.getDescripcion(),
+                        ropa.getIdTalla(),
+                        ropa.getFechaUltModificacion()
+                    });
 
-        }, () -> {
-            JOptionPane.showMessageDialog(null, "Tienda no encontrada");
-        });
+                    tbArticulo.setModel(model);
+                }, () -> {
+                    JOptionPane.showMessageDialog(null, "Artículo no encontrado");
+                });
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Por favor, ingrese un ID válido");
+            }
         }
+    }
     }//GEN-LAST:event_txtBuscarKeyPressed
 
     private void cargarTabla() {
-        List<Ropa> ropaList = ropaController.listarCategoria();  // Get the list of Tiendas
+        List<Ropa> ropaList = ropaController.listarCategoria();  
 
         if (ropaList.isEmpty()) {
             return;
@@ -318,7 +329,6 @@ public class CargarRopa extends javax.swing.JFrame {
     }
     
     private void cargarCombos(){
-    
         ropaController.tallaParaCombo(cbTalla);
         ropaController.categoriaParaCombo(cbCategoria);
     }

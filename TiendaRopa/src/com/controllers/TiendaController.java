@@ -29,14 +29,14 @@ public class TiendaController {
             JOptionPane.showMessageDialog(null, "Tienda creada exitosamente.");
             System.out.println("Tienda creada exitosamente.");
         } catch (SQLException | IllegalArgumentException e) {
-            System.err.println("Error al crear la categoría: " + e.getMessage());
+            System.err.println("Error al crear la Tienda: " + e.getMessage());
         }
     }
     public List<Tienda> listarTienda() {
         try {
             return tiendaService.findAll();
         } catch (SQLException e) {
-            System.err.println("Error al listar categorías: " + e.getMessage());
+            System.err.println("Error al listar Tiendas: " + e.getMessage());
             return List.of();
         }
     }
@@ -44,7 +44,7 @@ public class TiendaController {
         try {
             return tiendaService.findById(id);
         } catch (SQLException e) {
-            System.err.println("Error al obtener la categoría: " + e.getMessage());
+            System.err.println("Error al obtener la Tienda: " + e.getMessage());
             return Optional.empty();
         }
     }
@@ -53,16 +53,15 @@ public class TiendaController {
             tiendaService.delete(id);
             System.out.println("Tienda eliminada exitosamente.");
         } catch (SQLException | IllegalArgumentException e) {
-            System.err.println("Error al eliminar la categoría: " + e.getMessage());
+            System.err.println("Error al eliminar la Tienda: " + e.getMessage());
         }
     }
     
     public void actualizarTienda(int id, String descripcion, String direccion,String tel, String correo) {
         try {
-            
             Tienda tienda = new Tienda(id, descripcion, direccion, tel,  correo, "AppUser", java.time.LocalDateTime.now());
             tiendaService.update(tienda);
-            JOptionPane.showMessageDialog(null, "Tienda creada exitosamente.");
+            JOptionPane.showMessageDialog(null, "Tienda actualizada exitosamente.");
         } catch (SQLException e) {
             System.err.println("Error al actualizar la tienda: " + e.getMessage());
             JOptionPane.showMessageDialog(null, "Error al actualizar la tienda:");

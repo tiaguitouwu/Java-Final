@@ -106,7 +106,6 @@ public class CargarCategoria extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        tablaCategoria.setEnabled(false);
         jScrollPane1.setViewportView(tablaCategoria);
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -152,15 +151,15 @@ public class CargarCategoria extends javax.swing.JFrame {
                                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(txtBuscar))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(278, 278, 278)
                         .addComponent(jLabel1)))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addGap(25, 25, 25))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -196,56 +195,65 @@ public class CargarCategoria extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         categoriaController.crearCategoria(txtDescripcion.getText());
+        cargarTabla();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         categoriaController.actualizarCategoria(Integer.valueOf(txtId.getText()), txtDescripcion.getText());
+        cargarTabla();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         categoriaController.eliminarCategoria(Integer.valueOf(txtId.getText()));
+        cargarTabla();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void txtBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyPressed
         if (evt.getKeyCode() == evt.VK_ENTER) {
-            Optional<Categoria> catOpt = categoriaController.obtenerCategoria(Integer.valueOf(txtBuscar.getText()));  // Get Tienda by ID
+        String inputText = txtBuscar.getText().trim();
 
-            catOpt.ifPresentOrElse(cat -> {
-            String[] columnNames = {"ID", "Descripción", "Usuario", "Fecha de Modificación"};
+        if (inputText.isEmpty()) {
+            cargarTabla();
+        } else {
+            try {
+                int categoriaId = Integer.parseInt(inputText);
 
-            DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+                Optional<Categoria> catOpt = categoriaController.obtenerCategoria(categoriaId);
 
-            model.addRow(new Object[]{
-                    cat.getId(),
-                    cat.getDescripcionCategoria(),
-                    cat.getUsuario(),
-                    cat.getFechaUltModificacion()
-            });
+                catOpt.ifPresentOrElse(cat -> {
+                    String[] columnNames = {"ID", "Descripción", "Usuario", "Fecha de Modificación"};
 
-            tablaCategoria.setModel(model);
+                    DefaultTableModel model = new DefaultTableModel(columnNames, 0);
 
+                    model.addRow(new Object[]{
+                        cat.getId(),
+                        cat.getDescripcionCategoria(),
+                        cat.getUsuario(),
+                        cat.getFechaUltModificacion()
+                    });
 
-        }, () -> {
-            JOptionPane.showMessageDialog(null, "Tienda no encontrada");
-        });
+                    tablaCategoria.setModel(model);
+                }, () -> {
+                    JOptionPane.showMessageDialog(null, "Categoría no encontrada");
+                });
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Por favor, ingrese un ID válido");
+            }
         }
+    }
     }//GEN-LAST:event_txtBuscarKeyPressed
     
     private void cargarTabla() {
-        List<Categoria> catList = categoriaController.listarCategoria();  // Get the list of Tiendas
+        List<Categoria> catList = categoriaController.listarCategoria();  
 
-        // Check if the list is not empty
         if (catList.isEmpty()) {
             return;
         }
 
-        // Column names for the table
         String[] columnNames = {"ID", "Descripción", "Usuario", "Fecha de Modificación"};
 
-        // Create the table model
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
 
-        // Iterate over the list of Tiendas and add rows to the table model
         for (Categoria cat : catList) {
             model.addRow(new Object[]{
                     cat.getId(),
@@ -255,7 +263,6 @@ public class CargarCategoria extends javax.swing.JFrame {
             });
         }
 
-        // Set the table model to jTable1
         tablaCategoria.setModel(model);
     }
     /**

@@ -4,17 +4,40 @@
  */
 package com.view;
 
+import com.controllers.RopaController;
+import com.entity.Ropa;
+import com.repository.Categoria.CategoriaRepository;
+import com.repository.Ropa.RopaRepository;
+import com.repository.Talla.TallaRepository;
+import com.service.CategoriaService;
+import com.service.RopaService;
+import com.service.TallaService;
+import java.util.List;
+import java.util.Optional;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Jen
  */
 public class ReporteProductos extends javax.swing.JFrame {
-
+    TallaRepository tallaRepository = new TallaRepository();
+    TallaService tallaService = new TallaService(tallaRepository);
+    CategoriaRepository categoriaRepository = new CategoriaRepository();
+    CategoriaService categoriaService = new CategoriaService(categoriaRepository);
+    
+    
+    RopaRepository ropaRepository = new RopaRepository();
+    RopaService ropaService = new RopaService(ropaRepository);
+    RopaController ropaController = new RopaController(ropaService,tallaService, categoriaService);
+    
     /**
      * Creates new form ReporteProductos
      */
     public ReporteProductos() {
         initComponents();
+        cargarTabla();
     }
 
     /**
@@ -60,6 +83,12 @@ public class ReporteProductos extends javax.swing.JFrame {
 
         jLabel1.setText("ID Producto");
 
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField1KeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -96,7 +125,62 @@ public class ReporteProductos extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
+         if (evt.getKeyCode() == evt.VK_ENTER) {
+        String inputText = jTextField1.getText().trim();
+        
+            if (inputText.isEmpty()) {
+                cargarTabla();
+            } else {
+                try {
+                    int idRopa = Integer.parseInt(inputText); 
 
+                    Optional<Ropa> clienteOpt = ropaController.obtenerCategoria(idRopa);
+                    clienteOpt.ifPresentOrElse(ropa -> {
+                            String[] columnNames = {"ID", "Descripción", "Talla", "Fecha de Modificación"};
+
+                        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+
+                        model.addRow(new Object[]{
+                            ropa.getId(),
+                            ropa.getDescripcion(),
+                            ropa.getIdTalla(),
+                            ropa.getFechaUltModificacion()
+                        });
+
+                        jTable1.setModel(model);
+                    }, () -> {
+                        JOptionPane.showMessageDialog(null, "Cliente no encontrado");
+                    });
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "Por favor, ingrese un ID válido");
+                }
+            }
+        }
+    }//GEN-LAST:event_jTextField1KeyPressed
+
+
+    public void cargarTabla(){
+        List<Ropa> ropaList = ropaController.listarCategoria();
+        if (ropaList.isEmpty()) {
+            return;
+        }
+        String[] columnNames = {"ID", "Descripción", "Talla", "Fecha de Modificación"};
+
+        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+
+        for (Ropa ropa : ropaList) {
+            model.addRow(new Object[]{
+                    ropa.getId(),
+                    ropa.getDescripcion(),
+                    ropa.getIdTalla(),
+                    ropa.getFechaUltModificacion()
+            });
+        }
+
+        // Set the table model to jTable1
+        jTable1.setModel(model);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
