@@ -19,14 +19,13 @@ public class FacturaCompraRepository implements IFacturaCompraRepository {
     }
     @Override
     public void save(FacturaCompra obj) throws SQLException {
-        String sql = "INSERT INTO FacturaCompra (idpedidocompra, fechafactura, idtimbrado, estado, usuario, fechaultmodificacion) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO FacturaCompra (idpedidocompra, fechafactura, estado, usuario, fechaultmodificacion) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, obj.getIdPedidoCompra());
             stmt.setObject(2, obj.getFechaFactura());
-            stmt.setInt(3, obj.getIdTimbrado());
-            stmt.setInt(4, obj.getEstado());
-            stmt.setString(5, obj.getUsuario());
-            stmt.setObject(6, obj.getFechaUltModificacion());
+            stmt.setInt(3, obj.getEstado());
+            stmt.setString(4, obj.getUsuario());
+            stmt.setObject(5, obj.getFechaUltModificacion());
             stmt.executeUpdate();
         }
     }
@@ -42,7 +41,6 @@ public class FacturaCompraRepository implements IFacturaCompraRepository {
                     obj.setId(rs.getInt("id"));
                     obj.setIdPedidoCompra(rs.getInt("idpedidocompra"));
                     obj.setFechaFactura(rs.getTimestamp("fechafactura").toLocalDateTime());
-                    obj.setIdTimbrado(rs.getInt("idtimbrado"));
                     obj.setEstado(rs.getInt("estado"));
                     obj.setUsuario(rs.getString("usuario"));
                     obj.setFechaUltModificacion(rs.getTimestamp("fechaultmodificacion").toLocalDateTime());
@@ -58,14 +56,13 @@ public class FacturaCompraRepository implements IFacturaCompraRepository {
     @Override
     public List<FacturaCompra> findAll() throws SQLException {
         List<FacturaCompra> objList = new ArrayList<>();
-        String sql = "SELECT * FROM DetallePedidoVenta";
+        String sql = "SELECT * FROM FacturaCompra";
         try (PreparedStatement stmt = connection.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
                 FacturaCompra obj = new FacturaCompra();
                 obj.setId(rs.getInt("id"));
                 obj.setIdPedidoCompra(rs.getInt("idpedidocompra"));
                 obj.setFechaFactura(rs.getTimestamp("fechafactura").toLocalDateTime());
-                obj.setIdTimbrado(rs.getInt("idtimbrado"));
                 obj.setEstado(rs.getInt("estado"));
                 obj.setUsuario(rs.getString("usuario"));
                 obj.setFechaUltModificacion(rs.getTimestamp("fechaultmodificacion").toLocalDateTime());
@@ -77,15 +74,14 @@ public class FacturaCompraRepository implements IFacturaCompraRepository {
 
     @Override
     public void update(FacturaCompra obj) throws SQLException {
-        String sql = "UPDATE FacturaCompra SET idpedidocompra = ?, fechafactura = ?, idtimbrado = ?, estado = ?, usuario = ?, fechaultmodificacion = ? WHERE id = ?";
+        String sql = "UPDATE FacturaCompra SET idpedidocompra = ?, fechafactura = ?, estado = ?, usuario = ?, fechaultmodificacion = ? WHERE id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, obj.getIdPedidoCompra());
             stmt.setObject(2, obj.getFechaFactura());
-            stmt.setInt(3, obj.getIdTimbrado());
-            stmt.setInt(4, obj.getEstado());
-            stmt.setString(5, obj.getUsuario());
-            stmt.setObject(6, obj.getFechaUltModificacion());
-            stmt.setInt(7, obj.getId());
+            stmt.setInt(3, obj.getEstado());
+            stmt.setString(4, obj.getUsuario());
+            stmt.setObject(5, obj.getFechaUltModificacion());
+            stmt.setInt(6, obj.getId());
             stmt.executeUpdate();
         }
     }

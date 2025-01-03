@@ -4,17 +4,28 @@
  */
 package com.view;
 
+import com.controllers.ClienteController;
+import com.entity.Cliente;
+import com.repository.Cliente.ClienteRepository;
+import com.service.ClienteService;
+import java.util.List;
+import java.util.Optional;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Jen
  */
 public class ReporteClientes extends javax.swing.JFrame {
 
-    /**
-     * Creates new form ReporteProductos
-     */
+    ClienteRepository clienteRepository = new ClienteRepository();
+    ClienteService clienteService = new ClienteService(clienteRepository);
+    ClienteController clienteController = new ClienteController(clienteService);
+    
     public ReporteClientes() {
         initComponents();
+        cargarTabla();
     }
 
     /**
@@ -32,7 +43,7 @@ public class ReporteClientes extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -59,6 +70,12 @@ public class ReporteClientes extends javax.swing.JFrame {
         jLabel2.setText("REPORTE DE CLIENTES REGISTRADOS");
 
         jLabel1.setText("ID Cliente");
+
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField1KeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -96,42 +113,59 @@ public class ReporteClientes extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ReporteClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ReporteClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ReporteClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ReporteClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
+    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
+        if (evt.getKeyCode() == evt.VK_ENTER) {
+            Optional<Cliente> clienteOpt = clienteController.obtenerCliente(Integer.valueOf(jTextField1.getText()));  // Get Tienda by ID
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ReporteClientes().setVisible(true);
-            }
+            clienteOpt.ifPresentOrElse(cliente -> {
+            String[] columnNames = {"ID", "Razón Social", "Nombre", "Apellido", "RUC" , "Usuario", "Fecha de Modificación"};
+
+            // Create the table model
+            DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+
+            // Add the Tienda data to the table model (for a single Tienda)
+            model.addRow(new Object[]{
+                    cliente.getId(),
+                    cliente.getRazonSocial(),
+                    cliente.getNombre(),
+                    cliente.getApellido(),
+                    cliente.getRuc(),
+                    cliente.getUsuario(),
+                    cliente.getFechaUltModificacion()
+            });
+
+            jTable1.setModel(model);
+
+
+        }, () -> {
+            JOptionPane.showMessageDialog(null, "Tienda no encontrada");
         });
+        }
+    }//GEN-LAST:event_jTextField1KeyPressed
+    
+    public void cargarTabla(){
+        List<Cliente> clienteList = clienteController.listarCliente();
+        if (clienteList.isEmpty()) {
+            return;
+        }
+        String[] columnNames = {"ID", "Razón Social", "Nombre", "Apellido", "RUC" , "Usuario", "Fecha de Modificación"};
+
+        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+
+        for (Cliente cliente : clienteList) {
+            model.addRow(new Object[]{
+                    cliente.getId(),
+                    cliente.getRazonSocial(),
+                    cliente.getNombre(),
+                    cliente.getApellido(),
+                    cliente.getRuc(),
+                    cliente.getUsuario(),
+                    cliente.getFechaUltModificacion()
+            });
+        }
+
+        // Set the table model to jTable1
+        jTable1.setModel(model);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

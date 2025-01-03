@@ -60,7 +60,7 @@ public class PedidoCompraController {
     
     public void actualizarPedidoCompra(int id, String nroPedido, int idProveedor, int idTienda, int estado) {
         try {
-            PedidoCompra ped = new PedidoCompra(id, nroPedido, idProveedor, idTienda, java.time.LocalDateTime.now(), estado, "AppUser", java.time.LocalDateTime.now());
+            PedidoCompra ped = new PedidoCompra(id, nroPedido, idProveedor, idTienda, java.time.LocalDateTime.now(), estado, "AppUser", java.time.LocalDateTime.now(),null);
             pedidoCompraService.update(ped);
             JOptionPane.showMessageDialog(null, "Actualizado exitosamente.");
         } catch (SQLException e) {

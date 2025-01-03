@@ -12,11 +12,12 @@ public class PedidoCompra {
     private int estado;
     private String usuario;
     private LocalDateTime fechaUltModificacion;
+    private DetallePedidoCompra detallePedidoCompra;
 
     public PedidoCompra() {
     }
 
-    public PedidoCompra(int id, String nroPedido, int idProveedor, int idTienda, LocalDateTime fechaPedido, int estado, String usuario, LocalDateTime fechaUltModificacion) {
+    public PedidoCompra(int id, String nroPedido, int idProveedor, int idTienda, LocalDateTime fechaPedido, int estado, String usuario, LocalDateTime fechaUltModificacion,DetallePedidoCompra detallePedidoCompra) {
         this.id = id;
         this.nroPedido = nroPedido;
         this.idProveedor = idProveedor;
@@ -25,6 +26,7 @@ public class PedidoCompra {
         this.estado = estado;
         this.usuario = usuario;
         this.fechaUltModificacion = fechaUltModificacion;
+        this.detallePedidoCompra = detallePedidoCompra;
     }
 
     public int getId() {

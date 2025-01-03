@@ -6,7 +6,6 @@ public class FacturaCompra {
     private int id;
     private int idPedidoCompra;
     private LocalDateTime fechaFactura;
-    private int idTimbrado;
     private int estado;
     private String usuario;
     private LocalDateTime fechaUltModificacion;
@@ -14,11 +13,10 @@ public class FacturaCompra {
     public FacturaCompra(){
     }
 
-    public FacturaCompra(int id, int idPedidoCompra, LocalDateTime fechaFactura, int idTimbrado, int estado, String usuario, LocalDateTime fechaUltModificacion) {
+    public FacturaCompra(int id, int idPedidoCompra, LocalDateTime fechaFactura, int estado, String usuario, LocalDateTime fechaUltModificacion) {
         this.id = id;
         this.idPedidoCompra = idPedidoCompra;
         this.fechaFactura = fechaFactura;
-        this.idTimbrado = idTimbrado;
         this.estado = estado;
         this.usuario = usuario;
         this.fechaUltModificacion = fechaUltModificacion;
@@ -48,14 +46,6 @@ public class FacturaCompra {
         this.fechaFactura = fechaFactura;
     }
 
-    public int getIdTimbrado() {
-        return idTimbrado;
-    }
-
-    public void setIdTimbrado(int idTimbrado) {
-        this.idTimbrado = idTimbrado;
-    }
-
     public int getEstado() {
         return estado;
     }
@@ -82,7 +72,7 @@ public class FacturaCompra {
 
     @Override
     public String toString() {
-        return "FacturaCompra{" + "id=" + id + ", idPedidoCompra=" + idPedidoCompra + ", fechaFactura=" + fechaFactura + ", idTimbrado=" + idTimbrado + ", estado=" + estado + ", usuario=" + usuario + ", fechaUltModificacion=" + fechaUltModificacion + '}';
+        return "FacturaCompra{" + "id=" + id + ", idPedidoCompra=" + idPedidoCompra + ", fechaFactura=" + fechaFactura + ", estado=" + estado + ", usuario=" + usuario + ", fechaUltModificacion=" + fechaUltModificacion + '}';
     }
     
 }

@@ -51,7 +51,7 @@ public class RopaController {
         try {
             return ropaService.findById(id);
         } catch (SQLException e) {
-            System.err.println("Error al obtener la categoría: " + e.getMessage());
+            System.err.println("Error al obtener la articulo: " + e.getMessage());
             return Optional.empty();
         }
     }
@@ -59,19 +59,19 @@ public class RopaController {
     public void eliminarCategoria(int id) {
         try {
             ropaService.delete(id);
-            System.out.println("Categoría eliminada exitosamente.");
+            System.out.println("Articulo eliminada exitosamente.");
         } catch (SQLException | IllegalArgumentException e) {
-            System.err.println("Error al eliminar la categoría: " + e.getMessage());
+            System.err.println("Error al eliminar la articulo: " + e.getMessage());
         }
     }
     public void actualizarCategoria(int id, String descripcion, int idtalla, int idcategoria) {
         try {
             Ropa ropa = new Ropa(id, descripcion,idtalla,idcategoria, "AppUser", java.time.LocalDateTime.now());
             ropaService.update(ropa);
-            JOptionPane.showMessageDialog(null, "Tienda creada exitosamente.");
+            JOptionPane.showMessageDialog(null, "Articulo actualizada exitosamente.");
         } catch (SQLException e) {
-            System.err.println("Error al actualizar la tienda: " + e.getMessage());
-            JOptionPane.showMessageDialog(null, "Error al actualizar la tienda:");
+            System.err.println("Error al actualizar la Articulo: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al actualizar la Articulo:");
         }
     }
     public void tallaParaCombo(JComboBox<String> comboBox) {

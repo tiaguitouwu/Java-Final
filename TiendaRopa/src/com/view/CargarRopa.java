@@ -241,9 +241,10 @@ public class CargarRopa extends javax.swing.JFrame {
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
   
         String descripcion = txtDescripcion.getText();
-        int idtalla = cbTalla.getSelectedIndex();
-        int idcategoria = cbCategoria.getSelectedIndex();
+        int idtalla = ropaController.getSelectedComboId(cbTalla);
+        int idcategoria = ropaController.getSelectedComboId(cbCategoria);
         ropaController.actualizarCategoria(Integer.valueOf(txtId.getText()), descripcion,idtalla,idcategoria);
+        cargarTabla();
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
@@ -261,6 +262,7 @@ public class CargarRopa extends javax.swing.JFrame {
             cbCategoria.setSelectedIndex(0);
 
             JOptionPane.showMessageDialog(this, "Articulo guardado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            cargarTabla();
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
