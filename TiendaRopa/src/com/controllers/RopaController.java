@@ -34,7 +34,7 @@ public class RopaController {
             ropa.setFechaUltModificacion(java.time.LocalDateTime.now());
 
             ropaService.add(ropa);
-            System.out.println("Categoría creada exitosamente.");
+            System.out.println("Ropa creada exitosamente.");
         } catch (SQLException | IllegalArgumentException e) {
             System.err.println("Error al crear la categoría: " + e.getMessage());
         }
@@ -43,7 +43,7 @@ public class RopaController {
         try {
             return ropaService.findAll();
         } catch (SQLException e) {
-            System.err.println("Error al listar categorías: " + e.getMessage());
+            System.err.println("Error al listar ropas: " + e.getMessage());
             return List.of();
         }
     }

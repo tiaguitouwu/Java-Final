@@ -86,7 +86,7 @@ public class ReporteClientes extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 567, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -94,7 +94,7 @@ public class ReporteClientes extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(141, 141, 141)
                         .addComponent(jLabel2)))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addGap(15, 15, 15))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -114,33 +114,40 @@ public class ReporteClientes extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
-        if (evt.getKeyCode() == evt.VK_ENTER) {
-            Optional<Cliente> clienteOpt = clienteController.obtenerCliente(Integer.valueOf(jTextField1.getText()));  // Get Tienda by ID
+         if (evt.getKeyCode() == evt.VK_ENTER) {
+        String inputText = jTextField1.getText().trim();
+        
+        if (inputText.isEmpty()) {
+            cargarTabla();
+        } else {
+            try {
+                int clienteId = Integer.parseInt(inputText); 
+                
+                Optional<Cliente> clienteOpt = clienteController.obtenerCliente(clienteId);
+                clienteOpt.ifPresentOrElse(cliente -> {
+                    String[] columnNames = {"ID", "Razón Social", "Nombre", "Apellido", "RUC", "Usuario", "Fecha Mod."};
 
-            clienteOpt.ifPresentOrElse(cliente -> {
-            String[] columnNames = {"ID", "Razón Social", "Nombre", "Apellido", "RUC" , "Usuario", "Fecha de Modificación"};
+                    DefaultTableModel model = new DefaultTableModel(columnNames, 0);
 
-            // Create the table model
-            DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+                    model.addRow(new Object[]{
+                        cliente.getId(),
+                        cliente.getRazonSocial(),
+                        cliente.getNombre(),
+                        cliente.getApellido(),
+                        cliente.getRuc(),
+                        cliente.getUsuario(),
+                        cliente.getFechaUltModificacion()
+                    });
 
-            // Add the Tienda data to the table model (for a single Tienda)
-            model.addRow(new Object[]{
-                    cliente.getId(),
-                    cliente.getRazonSocial(),
-                    cliente.getNombre(),
-                    cliente.getApellido(),
-                    cliente.getRuc(),
-                    cliente.getUsuario(),
-                    cliente.getFechaUltModificacion()
-            });
-
-            jTable1.setModel(model);
-
-
-        }, () -> {
-            JOptionPane.showMessageDialog(null, "Tienda no encontrada");
-        });
+                    jTable1.setModel(model);
+                }, () -> {
+                    JOptionPane.showMessageDialog(null, "Cliente no encontrado");
+                });
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Por favor, ingrese un ID válido");
+            }
         }
+    }
     }//GEN-LAST:event_jTextField1KeyPressed
     
     public void cargarTabla(){
@@ -148,7 +155,7 @@ public class ReporteClientes extends javax.swing.JFrame {
         if (clienteList.isEmpty()) {
             return;
         }
-        String[] columnNames = {"ID", "Razón Social", "Nombre", "Apellido", "RUC" , "Usuario", "Fecha de Modificación"};
+        String[] columnNames = {"ID", "Razón Social", "Nombre", "Apellido", "RUC" , "Usuario", "Fecha Mod."};
 
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
 
