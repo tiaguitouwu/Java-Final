@@ -59,19 +59,19 @@ public class RopaController {
     public void eliminarCategoria(int id) {
         try {
             ropaService.delete(id);
-            System.out.println("Articulo eliminada exitosamente.");
+            System.out.println("Articulo eliminado exitosamente.");
         } catch (SQLException | IllegalArgumentException e) {
-            System.err.println("Error al eliminar la articulo: " + e.getMessage());
+            System.err.println("Error al eliminar el articulo: " + e.getMessage());
         }
     }
     public void actualizarCategoria(int id, String descripcion, int idtalla, int idcategoria) {
         try {
             Ropa ropa = new Ropa(id, descripcion,idtalla,idcategoria, "AppUser", java.time.LocalDateTime.now());
             ropaService.update(ropa);
-            JOptionPane.showMessageDialog(null, "Articulo actualizada exitosamente.");
+            JOptionPane.showMessageDialog(null, "Articulo actualizado exitosamente.");
         } catch (SQLException e) {
-            System.err.println("Error al actualizar la Articulo: " + e.getMessage());
-            JOptionPane.showMessageDialog(null, "Error al actualizar la Articulo:");
+            System.err.println("Error al actualizar el Articulo: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al actualizar el Articulo:");
         }
     }
     public void tallaParaCombo(JComboBox<String> comboBox) {
@@ -111,6 +111,15 @@ public class RopaController {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al cargar las tallas: " + e.getMessage(),
                     "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    public boolean existeRopa(int id) {
+         try {
+            return ropaService.findById(id).isPresent();
+        } catch (SQLException e) {
+            System.err.println("Error al obtener: " + e.getMessage());
+            return false;
         }
     }
 }
