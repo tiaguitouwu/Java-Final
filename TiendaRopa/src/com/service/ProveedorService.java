@@ -29,4 +29,8 @@ public class ProveedorService {
     public void delete(int id)  throws SQLException {
         repository.delete(id);
     }
+    public void update(Proveedor prov) throws SQLException {
+        repository.update(prov);
+    }
+    
 }

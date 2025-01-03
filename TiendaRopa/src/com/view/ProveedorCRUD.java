@@ -6,6 +6,7 @@ package com.view;
 
 import com.controllers.ProveedorController;
 import com.entity.Proveedor;
+import com.repository.Proveedor.ProveedorRepository;
 import com.service.ProveedorService;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -23,49 +24,13 @@ import javax.swing.table.TableRowSorter;
  * @author Nice
  */
 public class ProveedorCRUD extends javax.swing.JFrame {
-        
-    //TODO Eliminar datos de pruebas 
-    Proveedor proveedorTest = new Proveedor(
-            1, 
-            "Karen SRL", 
-            "Karen", 
-            "Gimenez", 
-            "985441-5", 
-            "kgimenez", 
-            LocalDateTime.now());
-
-        List<Proveedor> proveedores = new ArrayList<>();
+    ProveedorRepository repository = new ProveedorRepository();
+    ProveedorService service = new ProveedorService(repository);
+    ProveedorController controlador = new ProveedorController(service);
 
     public ProveedorCRUD() {
         initComponents();
-        
-        proveedores.add(new Proveedor(1, "Comercial ABC S.A.", "Carlos", "Pérez", "123456789", "carlos.perez", LocalDateTime.now()));
-        proveedores.add(new Proveedor(2, "Distribuciones XYZ", "Ana", "Martínez", "987654321", "ana.martinez", LocalDateTime.now()));
-        proveedores.add(new Proveedor(3, "Productos El Sol", "Luis", "González", "456789123", "luis.gonzalez", LocalDateTime.now()));
-        proveedores.add(new Proveedor(4, "Tecnologías Globales", "Marta", "López", "321654987", "marta.lopez", LocalDateTime.now()));
-        proveedores.add(new Proveedor(5, "Alimentos del Valle", "Juan", "Rodríguez", "159753486", "juan.rodriguez", LocalDateTime.now()));
-        proveedores.add(new Proveedor(6, "Construcciones Progreso", "Sofía", "Hernández", "258369741", "sofia.hernandez", LocalDateTime.now()));
-        proveedores.add(new Proveedor(7, "Soluciones Eficientes", "Pedro", "Gómez", "753951456", "pedro.gomez", LocalDateTime.now()));
-        proveedores.add(new Proveedor(8, "Servicios Integrales", "Elena", "Vázquez", "369258147", "elena.vazquez", LocalDateTime.now()));
-        proveedores.add(new Proveedor(9, "Insumos Industriales", "Roberto", "Sánchez", "147852369", "roberto.sanchez", LocalDateTime.now()));
-        proveedores.add(new Proveedor(10, "Farmacéutica Delta", "Clara", "Jiménez", "258147369", "clara.jimenez", LocalDateTime.now()));
-        
-        String[] columnas = {"ID", "Razón Social", "Nombre", "Apellido", "RUC", "Usuario", "Fecha Últ. Modificación"};
-        DefaultTableModel model = new DefaultTableModel(columnas, 0);
-        
-        
-        for (Proveedor proveedor : proveedores) {
-            Object[] row = {proveedor.getId(), proveedor.getRazonSocial(), proveedor.getNombre(), proveedor.getApellido(),
-                            proveedor.getRuc(), proveedor.getUsuario(), proveedor.getFechaUltModificacion()};
-            model.addRow(row);
-        }
-        
-        
-        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
-        tbProveedor.setRowSorter(sorter);  // Asumiendo que tbProveedor ya está definido en tu interfaz
-
-        
-        tbProveedor.setModel(model);
+        cargarTabla();
         
     }
 
@@ -97,7 +62,7 @@ public class ProveedorCRUD extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tbProveedor = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setName("frmProveedor"); // NOI18N
 
         lblProveedor.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
@@ -218,7 +183,7 @@ public class ProveedorCRUD extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(308, Short.MAX_VALUE)
+                .addContainerGap(311, Short.MAX_VALUE)
                 .addComponent(lblProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(173, 173, 173))
         );
@@ -266,39 +231,30 @@ public class ProveedorCRUD extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        // TODO add your handling code here:
-        if (validarCampoID()) {
-            if (Integer.parseInt(txtId.getText()) != proveedorTest.getId()) {
-                JOptionPane.showMessageDialog(this, "El proveedor ingresado no existe", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
+        
+        int id = Integer.valueOf(txtId.getText());
+        String razonSocial = txtRazonSocial.getText();
+        String nombre = txtNombre.getText();
+        String apellido = txtApellido.getText();
+        String ruc = txtRUC.getText();
+        String usuario = "AppUser";
+        
+        Proveedor proveedor = new Proveedor(id, razonSocial, nombre, apellido, ruc, usuario, LocalDateTime.now());
 
-            txtRazonSocial.setText(proveedorTest.getRazonSocial());
-            txtNombre.setText(proveedorTest.getNombre());
-            txtApellido.setText(proveedorTest.getApellido());
-            txtRUC.setText(proveedorTest.getRuc());
-        }
+        controlador.actualizarProveedor(proveedor);
+        cargarTabla();
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // Primero, validamos que todos los campos estén completos
         if (validarCampos()) {
-            // Creamos el proveedor con los datos de los campos de texto
-            // Crear el objeto Proveedor
-            int id = Integer.parseInt(txtId.getText());  // Convertir el texto a un número
             String razonSocial = txtRazonSocial.getText();
             String nombre = txtNombre.getText();
             String apellido = txtApellido.getText();
             String ruc = txtRUC.getText();
-            String usuario = txtBuscar.getText(); // Suponiendo que "Buscar" es el campo de usuario
+            String usuario = "AppUser"; // Suponiendo que "Buscar" es el campo de usuario
 
-            // Crear el objeto proveedor
-            Proveedor proveedor = new Proveedor(id, razonSocial, nombre, apellido, ruc, usuario, LocalDateTime.now());
-
-
-            // Aquí puedes agregar la lógica para guardar el proveedor en la base de datos o en una lista
-            // Por ejemplo, si tienes un servicio para ello:
-            // proveedorService.save(proveedor);
+            controlador.crearProveedor(razonSocial, nombre, apellido, ruc, usuario, LocalDateTime.now());
 
             // Limpiar los campos
             txtId.setText("");
@@ -309,19 +265,14 @@ public class ProveedorCRUD extends javax.swing.JFrame {
 
             // Mostrar mensaje de éxito
             JOptionPane.showMessageDialog(this, "Proveedor guardado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            cargarTabla();
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
-       
-        if (validarCampoID()) {
-            if (Integer.parseInt(txtId.getText()) != proveedorTest.getId()) {
-                JOptionPane.showMessageDialog(this, "El proveedor ingresado no existe", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            JOptionPane.showMessageDialog(this, "Proveedor eliminado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-        }
+        controlador.eliminarProveedor(Integer.valueOf(txtId.getText()));
+        JOptionPane.showMessageDialog(this, "Proveedor eliminado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        cargarTabla();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
 
@@ -346,28 +297,32 @@ public class ProveedorCRUD extends javax.swing.JFrame {
     private javax.swing.JTextField txtRazonSocial;
     // End of variables declaration//GEN-END:variables
 
-private boolean validarCampos() {
-    // Comprobamos que todos los campos tengan contenido
-    if (txtId.getText().trim().isEmpty() || txtRazonSocial.getText().trim().isEmpty() || 
-        txtNombre.getText().trim().isEmpty() || txtApellido.getText().trim().isEmpty() || 
-        txtRUC.getText().trim().isEmpty()) {
-        
-        // Mostramos un mensaje de error si algún campo está vacío
-        JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios", "Error", JOptionPane.ERROR_MESSAGE);
-        return false; // Si algún campo está vacío, retorna false
+    private boolean validarCampos() {
+        // Comprobamos que todos los campos tengan contenido
+        if (txtRazonSocial.getText().trim().isEmpty() || 
+            txtNombre.getText().trim().isEmpty() || txtApellido.getText().trim().isEmpty() || 
+            txtRUC.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
     }
-    return true; // Todos los campos están llenos
-}
+    private void cargarTabla() {
+        List<Proveedor> list = controlador.listarProveedor();  // Get the list of Tiendas
 
-private boolean validarCampoID() {
-    // Comprobamos que todos los campos tengan contenido
-    if (txtId.getText().trim().isEmpty()) {
-        
-        // Mostramos un mensaje de error si algún campo está vacío
-        JOptionPane.showMessageDialog(this, "El campo ID es necesario para buscar un proveedor", "Error", JOptionPane.ERROR_MESSAGE);
-        return false; // Si algún campo está vacío, retorna false
+        if (list.isEmpty()) {
+            return;
+        }
+
+        String[] columnas = {"ID", "Razón Social", "Nombre", "Apellido", "RUC", "Usuario", "Fecha Últ. Modificación"};
+
+        DefaultTableModel model = new DefaultTableModel(columnas, 0);
+        for (Proveedor prov : list) {
+            model.addRow(new Object[]{
+                    prov.getId(), prov.getRazonSocial(), prov.getNombre(), prov.getApellido(),
+                            prov.getRuc(), prov.getUsuario(), prov.getFechaUltModificacion()
+            });
+        }
+        tbProveedor.setModel(model);
     }
-    return true; // Todos los campos están llenos
-}
-
 }
