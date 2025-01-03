@@ -1,10 +1,12 @@
 package com.controllers;
 
 import com.entity.Categoria;
+import com.entity.Tienda;
 import com.service.CategoriaService;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
+import javax.swing.JOptionPane;
 
 public class CategoriaController {
     private final CategoriaService categoriaService;
@@ -13,11 +15,11 @@ public class CategoriaController {
         this.categoriaService = categoriaService;
     }
     
-    public void crearCategoria(String descripcion, String usuario) {
+    public void crearCategoria(String descripcion) {
         try {
             Categoria categoria = new Categoria();
             categoria.setDescripcionCategoria(descripcion);
-            categoria.setUsuario(usuario);
+            categoria.setUsuario("AppUser");
             categoria.setFechaUltModificacion(java.time.LocalDateTime.now());
 
             categoriaService.add(categoria);
@@ -26,47 +28,39 @@ public class CategoriaController {
             System.err.println("Error al crear la categoría: " + e.getMessage());
         }
     }
-    public void listarCategorias() {
+    public List<Categoria> listarCategoria() {
         try {
-            List<Categoria> categorias = categoriaService.findAll();
-            if (categorias.isEmpty()) {
-                System.out.println("No hay categorías disponibles.");
-            } else {
-                System.out.println("Categorías:");
-                for (Categoria categoria : categorias) {
-                    System.out.printf("ID: %d, Descripción: %s, Usuario: %s, Fecha: %s%n",
-                            categoria.getId(),
-                            categoria.getDescripcionCategoria(),
-                            categoria.getUsuario(),
-                            categoria.getFechaUltModificacion());
-                }
-            }
+            return categoriaService.findAll();
         } catch (SQLException e) {
             System.err.println("Error al listar categorías: " + e.getMessage());
+            return List.of();
         }
     }
-    public void obtenerCategoria(int id) {
+    public Optional<Categoria> obtenerCategoria(int id) {
         try {
-            Optional<Categoria> categoria = categoriaService.findById(id);
-            if (categoria.isPresent()) {
-                System.out.printf("ID: %d, Descripción: %s, Usuario: %s, Fecha: %s%n",
-                        categoria.get().getId(),
-                        categoria.get().getDescripcionCategoria(),
-                        categoria.get().getUsuario(),
-                        categoria.get().getFechaUltModificacion());
-            } else {
-                System.out.println("Categoría no encontrada.");
-            }
+            return categoriaService.findById(id);
         } catch (SQLException e) {
             System.err.println("Error al obtener la categoría: " + e.getMessage());
+            return Optional.empty();
         }
     }
+    
     public void eliminarCategoria(int id) {
         try {
             categoriaService.delete(id);
             System.out.println("Categoría eliminada exitosamente.");
         } catch (SQLException | IllegalArgumentException e) {
             System.err.println("Error al eliminar la categoría: " + e.getMessage());
+        }
+    }
+    public void actualizarCategoria(int id, String descripcion) {
+        try {
+            Categoria cat = new Categoria(id, descripcion, "AppUser", java.time.LocalDateTime.now());
+            categoriaService.update(cat);
+            JOptionPane.showMessageDialog(null, "Tienda creada exitosamente.");
+        } catch (SQLException e) {
+            System.err.println("Error al actualizar la tienda: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al actualizar la tienda:");
         }
     }
     

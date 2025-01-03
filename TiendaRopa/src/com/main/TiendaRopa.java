@@ -48,7 +48,7 @@ public class TiendaRopa {
                 new Inicio().setVisible(true);
             }
         });
-        
+
     }
     
 }

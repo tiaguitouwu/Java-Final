@@ -98,6 +98,11 @@ public class Inicio extends javax.swing.JFrame {
         jMenu6.setText("Articulos");
 
         jMenuItem7.setText("Articulo");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
         jMenu6.add(jMenuItem7);
 
         jMenuItem8.setText("Categoria");
@@ -207,7 +212,7 @@ public class Inicio extends javax.swing.JFrame {
         facturaCompra.show();
     }//GEN-LAST:event_jMenuItem5ActionPerformed
    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        Stock1 articulo = new Stock1();
+        StockPantalla articulo = new StockPantalla();
         articulo.show();
                 
     }//GEN-LAST:event_jMenuItem3ActionPerformed
@@ -241,6 +246,11 @@ public class Inicio extends javax.swing.JFrame {
        ReporteProveedores repProveedores = new ReporteProveedores (); 
         repProveedores.show();
     }//GEN-LAST:event_jMenuItem14ActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        CargarRopa repProveedores = new CargarRopa (); 
+        repProveedores.show();
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     /**
      * @param args the command line arguments

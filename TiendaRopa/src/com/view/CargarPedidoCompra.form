@@ -37,9 +37,9 @@
                       <EmptySpace min="33" pref="33" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel2" min="-2" pref="143" max="-2" attributes="0"/>
-                                  <Component id="Cliente" alignment="1" min="-2" pref="143" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="txtProveedor" min="-2" pref="143" max="-2" attributes="0"/>
+                                  <Component id="jLabel3" min="-2" pref="143" max="-2" attributes="0"/>
                               </Group>
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Group type="102" alignment="1" attributes="0">
@@ -49,44 +49,42 @@
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="TxtNroCliente" pref="87" max="32767" attributes="0"/>
-                                          <Component id="TxtIdPedidoVenta" max="32767" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      <Component id="TxtIdPedidoVenta" min="-2" pref="87" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="jLabel2" min="-2" pref="143" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="187" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
                           <Group type="102" attributes="0">
                               <Component id="jScrollPane1" min="-2" pref="357" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="Usuario" min="-2" pref="68" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="TxtUsuario" min="-2" pref="181" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="TxtRopa" max="32767" attributes="0"/>
-                                          <Component id="Articulo" max="32767" attributes="0"/>
-                                          <Component id="Precio" max="32767" attributes="0"/>
-                                          <Component id="Cantidad" min="-2" pref="109" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace pref="15" max="32767" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="TxtId" max="32767" attributes="0"/>
-                                          <Component id="TxtArticulo" max="32767" attributes="0"/>
-                                          <Component id="TxtPrecio" max="32767" attributes="0"/>
-                                          <Component id="TxtCantidad" min="-2" pref="181" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="TxtRopa" max="32767" attributes="0"/>
+                                  <Component id="Articulo" max="32767" attributes="0"/>
+                                  <Component id="Precio" max="32767" attributes="0"/>
+                                  <Component id="Cantidad" min="-2" pref="109" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace pref="15" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="TxtId" max="32767" attributes="0"/>
+                                  <Component id="TxtArticulo" max="32767" attributes="0"/>
+                                  <Component id="TxtPrecio" max="32767" attributes="0"/>
+                                  <Component id="TxtCantidad" min="-2" pref="181" max="-2" attributes="0"/>
+                                  <Component id="txtTienda" alignment="0" min="-2" pref="87" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+          </Group>
+          <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+              <Group type="102" attributes="0">
+                  <EmptySpace min="-2" pref="192" max="-2" attributes="0"/>
+                  <Component id="TxtNroCliente1" pref="87" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="463" max="-2" attributes="0"/>
+              </Group>
           </Group>
       </Group>
     </DimensionLayout>
@@ -97,30 +95,28 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel2" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
                           <Component id="TxtIdPedidoVenta" alignment="3" max="32767" attributes="0"/>
+                          <Component id="jLabel3" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="Cliente" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
-                          <Component id="TxtNroCliente" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                      <Component id="txtProveedor" min="-2" pref="22" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                       <Component id="jLabel1" min="-2" pref="31" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="txtTienda" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel2" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jScrollPane1" min="-2" pref="178" max="-2" attributes="0"/>
                   <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="Usuario" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="TxtUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="TxtRopa" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="TxtId" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -151,6 +147,13 @@
                   </Group>
               </Group>
               <EmptySpace pref="27" max="32767" attributes="0"/>
+          </Group>
+          <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
+                  <Component id="TxtNroCliente1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="294" max="32767" attributes="0"/>
+              </Group>
           </Group>
       </Group>
     </DimensionLayout>
@@ -223,13 +226,13 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Pedido"/>
+        <Property name="text" type="java.lang.String" value="Tienda"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="jButton1">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Java-Final/TiendaRopa/src/com/resources/confirm.png"/>
+          <Image iconType="3" name="/com/resources/confirm.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Guardar"/>
       </Properties>
@@ -240,7 +243,7 @@
     <Component class="javax.swing.JButton" name="jButton2">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Java-Final/TiendaRopa/src/com/resources/edit.png"/>
+          <Image iconType="3" name="/com/resources/edit.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Editar"/>
       </Properties>
@@ -251,7 +254,7 @@
     <Component class="javax.swing.JButton" name="jButton3">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Java-Final/TiendaRopa/src/com/resources/remove.png"/>
+          <Image iconType="3" name="/com/resources/remove.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Eliminar"/>
       </Properties>
@@ -260,13 +263,6 @@
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="TxtIdPedidoVenta">
-    </Component>
-    <Component class="javax.swing.JLabel" name="Usuario">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Usuario"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="TxtUsuario">
     </Component>
     <Component class="javax.swing.JLabel" name="TxtRopa">
       <Properties>
@@ -289,9 +285,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="TxtId">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TxtIdActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="TxtArticulo">
     </Component>
@@ -299,17 +292,30 @@
     </Component>
     <Component class="javax.swing.JTextField" name="TxtCantidad">
     </Component>
-    <Component class="javax.swing.JLabel" name="Cliente">
+    <Component class="javax.swing.JLabel" name="txtProveedor">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Cliente"/>
+        <Property name="text" type="java.lang.String" value="Proveedor"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="TxtNroCliente">
+    <Component class="javax.swing.JTextField" name="txtTienda">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="TxtNroCliente1">
+      <Properties>
+        <Property name="horizontalAlignment" type="int" value="0"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel3">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="18" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Pedido"/>
       </Properties>
     </Component>
   </SubComponents>

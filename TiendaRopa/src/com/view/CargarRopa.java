@@ -4,10 +4,18 @@
  */
 package com.view;
 
+import com.controllers.RopaController;
 import com.entity.Ropa;
+import com.repository.Categoria.CategoriaRepository;
+import com.repository.Ropa.RopaRepository;
+import com.repository.Talla.TallaRepository;
+import com.service.CategoriaService;
+import com.service.RopaService;
+import com.service.TallaService;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -16,7 +24,18 @@ import javax.swing.table.TableRowSorter;
  *
  * @author yyy
  */
-public class ArticuloCRUD extends javax.swing.JFrame {
+public class CargarRopa extends javax.swing.JFrame {
+    
+    TallaRepository tallaRepository = new TallaRepository();
+    TallaService tallaService = new TallaService(tallaRepository);
+    CategoriaRepository categoriaRepository = new CategoriaRepository();
+    CategoriaService categoriaService = new CategoriaService(categoriaRepository);
+    
+    
+    RopaRepository ropaRepository = new RopaRepository();
+    RopaService ropaService = new RopaService(ropaRepository);
+    RopaController ropaController = new RopaController(ropaService,tallaService, categoriaService);
+    
     
     Ropa ropaPrueba = new Ropa(
     1, "Camiseta de algodón", 3, 2, "usuario123", LocalDateTime.now());
@@ -25,45 +44,10 @@ public class ArticuloCRUD extends javax.swing.JFrame {
     /**
      * Creates new form ArticuloCRUD
      */
-    public ArticuloCRUD() {
+    public CargarRopa() {
            initComponents();
-    // Generar 10 artículos con datos de prueba
-     // Generar 10 artículos de ropa con datos de prueba
-        listaRopas.add(new Ropa(1, "Camiseta deportiva Nike con logo", 2, 1, "juan.perez", LocalDateTime.now()));
-        listaRopas.add(new Ropa(2, "Jeans Levi's 501 Corte Recto", 3, 2, "ana.martinez", LocalDateTime.now().minusDays(1)));
-        listaRopas.add(new Ropa(3, "Chaqueta de invierno Columbia", 4, 3, "pedro.sanchez", LocalDateTime.now().minusDays(2)));
-        listaRopas.add(new Ropa(4, "Vestido largo de verano Mango", 1, 4, "laura.gomez", LocalDateTime.now().minusWeeks(1)));
-        listaRopas.add(new Ropa(5, "Botines Timberland en cuero", 3, 5, "jose.fernandez", LocalDateTime.now().minusMonths(1)));
-        listaRopas.add(new Ropa(6, "Pantalones deportivos Adidas", 2, 2, "maria.lopez", LocalDateTime.now().minusMonths(2)));
-        listaRopas.add(new Ropa(7, "Camiseta de manga larga Ralph Lauren", 2, 1, "ricardo.martinez", LocalDateTime.now().minusDays(5)));
-        listaRopas.add(new Ropa(8, "Sudadera con capucha Under Armour", 3, 2, "patricia.hernandez", LocalDateTime.now().minusDays(3)));
-        listaRopas.add(new Ropa(9, "Pantalones cortos deportivos Nike", 1, 3, "luis.gomez", LocalDateTime.now().minusMonths(3)));
-        listaRopas.add(new Ropa(10, "Abrigo de lana Burberry", 4, 5, "carlos.perez", LocalDateTime.now().minusWeeks(2)));
-
-
-    // Configurar las columnas de la tabla
-    String[] columnas = {"ID", "Nombre", "Categoría", "Descripción", "Usuario", "Fecha Últ. Modificación"};
-    DefaultTableModel model = new DefaultTableModel(columnas, 0);
-
-    // Llenar la tabla con los datos de los artículos
-    for (Ropa ropa : listaRopas) {
-        Object[] row = {
-            ropa.getId(),
-            ropa.getDescripcion(),
-            ropa.getIdCategoria(),
-            ropa.getIdTalla(),
-            ropa.getUsuario(),
-            ropa.getFechaUltModificacion()
-        };
-        model.addRow(row);
-    }
-
-    // Ordenar las filas de la tabla
-    TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
-    tbArticulo.setRowSorter(sorter);  // Asumiendo que tbArticulo es la tabla en tu interfaz
-
-    // Establecer el modelo de la tabla
-    tbArticulo.setModel(model);
+           cargarTabla();
+           cargarCombos();
     }
 
     /**
@@ -92,12 +76,12 @@ public class ArticuloCRUD extends javax.swing.JFrame {
         cbTalla = new javax.swing.JComboBox<>();
         cbCategoria = new javax.swing.JComboBox<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         txtBuscar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        txtBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtBuscarActionPerformed(evt);
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyPressed(evt);
             }
         });
 
@@ -106,7 +90,6 @@ public class ArticuloCRUD extends javax.swing.JFrame {
 
         tbArticulo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1", "Remera", "M", "Verano"},
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null}
@@ -176,11 +159,6 @@ public class ArticuloCRUD extends javax.swing.JFrame {
 
         cbTalla.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         cbTalla.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Talla S", "Talla P", "Talla M", "Talla G" }));
-        cbTalla.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbTallaActionPerformed(evt);
-            }
-        });
 
         cbCategoria.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         cbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Verano", "Invierno", "Otoño", "Primavera" }));
@@ -261,103 +239,86 @@ public class ArticuloCRUD extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        // TODO add your handling code here:
-        if (validarCampoID()) {
-            if (Integer.parseInt(txtId.getText()) != ropaPrueba.getId()) {
-                JOptionPane.showMessageDialog(this, "El articulo ingresado no existe", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            txtDescripcion.setText(ropaPrueba.getDescripcion());
-            cbTalla.setSelectedIndex(ropaPrueba.getIdTalla());
-            cbCategoria.setSelectedIndex(ropaPrueba.getIdCategoria());
-        }
+  
+        String descripcion = txtDescripcion.getText();
+        int idtalla = cbTalla.getSelectedIndex();
+        int idcategoria = cbCategoria.getSelectedIndex();
+        ropaController.actualizarCategoria(Integer.valueOf(txtId.getText()), descripcion,idtalla,idcategoria);
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        // TODO add your handling code here:
-        // Primero, validamos que todos los campos estén completos
+        
         if (validarCampos()) {
-            // Creamos el cliente con los datos de los campos de texto
-            // Crear el objeto Proveedor
-            int id = Integer.parseInt(txtId.getText());  // Convertir el texto a un número
             String descripcion = txtDescripcion.getText();
-            int idtalla = cbTalla.getSelectedIndex();
-            int idcategoria = cbCategoria.getSelectedIndex();
-            String usuario = txtBuscar.getText(); // Suponiendo que "Buscar" es el campo de usuario
+            int idtalla = ropaController.getSelectedComboId(cbTalla);
+            int idcategoria = ropaController.getSelectedComboId(cbCategoria);
 
-            // Crear el objeto proveedor
-            Ropa ropa = new Ropa(id, descripcion, idtalla, idcategoria, usuario, LocalDateTime.now());
+            ropaController.crearRopa(descripcion, idtalla, idcategoria);
 
-
-            // Aquí puedes agregar la lógica para guardar el cliente en la base de datos o en una lista
-            // Por ejemplo, si tienes un servicio para ello:
-            // clienteService.save(cliente);
-
-            // Limpiar los campos
             txtId.setText("");
             txtDescripcion.setText("");
             cbTalla.setSelectedIndex(0);
             cbCategoria.setSelectedIndex(0);
 
-            // Mostrar mensaje de éxito
             JOptionPane.showMessageDialog(this, "Articulo guardado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
-    private void cbTallaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTallaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbTallaActionPerformed
-
-    private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtBuscarActionPerformed
-
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
-         if (validarCampoID()) {
-            if (Integer.parseInt(txtId.getText()) != ropaPrueba.getId()) {
-                JOptionPane.showMessageDialog(this, "El Articulo ingresado no existe", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            JOptionPane.showMessageDialog(this, "Articulo eliminado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-        }
+        ropaController.eliminarCategoria(Integer.valueOf(txtId.getText()));
     }//GEN-LAST:event_btnEliminarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ArticuloCRUD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ArticuloCRUD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ArticuloCRUD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ArticuloCRUD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
+    private void txtBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyPressed
+        if (evt.getKeyCode() == evt.VK_ENTER) {
+            Optional<Ropa> tiendaOpt = ropaController.obtenerCategoria(Integer.valueOf(txtBuscar.getText()));  // Get Tienda by ID
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ArticuloCRUD().setVisible(true);
-            }
+            tiendaOpt.ifPresentOrElse(ropa -> {
+            String[] columnNames = {"ID", "Descripción", "Usuario", "Fecha de Modificación"};
+            DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+
+            model.addRow(new Object[]{
+                    ropa.getId(),
+                    ropa.getDescripcion(),
+                    ropa.getIdTalla(),
+                    ropa.getFechaUltModificacion()
+            });
+
+            tbArticulo.setModel(model);
+
+
+        }, () -> {
+            JOptionPane.showMessageDialog(null, "Tienda no encontrada");
         });
+        }
+    }//GEN-LAST:event_txtBuscarKeyPressed
+
+    private void cargarTabla() {
+        List<Ropa> ropaList = ropaController.listarCategoria();  // Get the list of Tiendas
+
+        if (ropaList.isEmpty()) {
+            return;
+        }
+
+        String[] columnas = {"ID", "Categoría","Talla", "Descripción", "Usuario", "Fecha Últ. Modificación"};
+
+        DefaultTableModel model = new DefaultTableModel(columnas, 0);
+        for (Ropa ropa : ropaList) {
+            model.addRow(new Object[]{
+                    ropa.getId(),
+                    ropa.getIdCategoria(),
+                    ropa.getIdTalla(),
+                    ropa.getDescripcion(),
+                    ropa.getUsuario(),
+                    ropa.getFechaUltModificacion()
+            });
+        }
+        tbArticulo.setModel(model);
+    }
+    
+    private void cargarCombos(){
+    
+        ropaController.tallaParaCombo(cbTalla);
+        ropaController.categoriaParaCombo(cbCategoria);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -379,28 +340,13 @@ public class ArticuloCRUD extends javax.swing.JFrame {
     private javax.swing.JTextField txtId;
     // End of variables declaration//GEN-END:variables
 
-      private boolean validarCampos() {
-        // Comprobamos que todos los campos tengan contenido
-    if (txtId.getText().trim().isEmpty() || 
-        txtDescripcion.getText().trim().isEmpty() || String.valueOf(cbTalla.getSelectedIndex()).trim().isEmpty() || 
-        String.valueOf(cbCategoria.getSelectedIndex()).trim().isEmpty()) {
-        
-        // Mostramos un mensaje de error si algún campo está vacío
-        JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios", "Error", JOptionPane.ERROR_MESSAGE);
-        return false; // Si algún campo está vacío, retorna false
+    private boolean validarCampos() {
+        if (txtId.getText().trim().isEmpty() || 
+            txtDescripcion.getText().trim().isEmpty() || String.valueOf(cbTalla.getSelectedIndex()).trim().isEmpty() || 
+            String.valueOf(cbCategoria.getSelectedIndex()).trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
     }
-    return true; // Todos los campos están llenos
-    }
-
-    private boolean validarCampoID() {
-        // Comprobamos que todos los campos tengan contenido
-    if (txtId.getText().trim().isEmpty()) {
-        
-        // Mostramos un mensaje de error si algún campo está vacío
-        JOptionPane.showMessageDialog(this, "El campo ID es necesario para buscar un articulo", "Error", JOptionPane.ERROR_MESSAGE);
-        return false; // Si algún campo está vacío, retorna false
-    }
-    return true; // Todos los campos están llenos
-    }
-
 }

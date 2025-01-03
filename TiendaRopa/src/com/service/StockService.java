@@ -29,4 +29,8 @@ public class StockService {
     public void delete(int id)  throws SQLException {
         repository.delete(id);
     }
+    
+    public void update(Stock stock) throws SQLException {
+        repository.update(stock);
+    }
 }

@@ -29,4 +29,8 @@ public class TiendaService {
     public void delete(int id)  throws SQLException {
         repository.delete(id);
     }
+    
+    public void update(Tienda tienda) throws SQLException {
+        repository.update(tienda);
+    }
 }

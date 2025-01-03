@@ -33,45 +33,31 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jButton1" min="-2" pref="122" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="TxtUsuario" min="-2" pref="181" max="-2" attributes="0"/>
-                  </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                       <Component id="jScrollPane1" min="-2" pref="357" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="Usuario" min="-2" pref="68" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="TxtRopa" max="32767" attributes="0"/>
-                                  <Component id="Articulo" max="32767" attributes="0"/>
-                                  <Component id="Precio" max="32767" attributes="0"/>
-                                  <Component id="Cantidad" pref="109" max="32767" attributes="0"/>
-                                  <Component id="Cantidad1" pref="109" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace pref="19" max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="TxtId" pref="181" max="32767" attributes="0"/>
-                                  <Component id="TxtArticulo" max="32767" attributes="0"/>
-                                  <Component id="TxtPrecio" max="32767" attributes="0"/>
-                                  <Component id="TxtCantidad" max="32767" attributes="0"/>
-                                  <Component id="TxtSucursal" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="TxtRopa" max="32767" attributes="0"/>
+                          <Component id="Articulo" max="32767" attributes="0"/>
+                          <Component id="Cantidad" pref="109" max="32767" attributes="0"/>
+                          <Component id="Cantidad1" pref="109" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="14" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="TxtId" pref="181" max="32767" attributes="0"/>
+                          <Component id="TxtArticulo" max="32767" attributes="0"/>
+                          <Component id="TxtCantidad" max="32767" attributes="0"/>
+                          <Component id="TxtSucursal" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="19" max="32767" attributes="0"/>
+              <EmptySpace pref="13" max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-              <Component id="jLabel1" min="-2" pref="277" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="172" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="276" max="32767" attributes="0"/>
+              <Component id="jLabel1" min="-2" pref="116" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="333" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -80,12 +66,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" pref="31" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="Usuario" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="TxtUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jScrollPane1" min="-2" pref="178" max="-2" attributes="0"/>
                   <Group type="102" attributes="0">
@@ -98,12 +79,7 @@
                           <Component id="Articulo" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="TxtArticulo" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="Precio" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="TxtPrecio" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="Cantidad" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="TxtCantidad" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -123,7 +99,7 @@
                       <Component id="jButton2" alignment="3" min="-2" pref="44" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="38" max="32767" attributes="0"/>
+              <EmptySpace pref="44" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -134,6 +110,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="1"/>
         </Property>
+        <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="Stock"/>
       </Properties>
     </Component>
@@ -200,7 +177,7 @@
     <Component class="javax.swing.JButton" name="jButton1">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Java-Final/TiendaRopa/src/com/resources/confirm.png"/>
+          <Image iconType="3" name="/com/resources/confirm.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Guardar"/>
       </Properties>
@@ -211,7 +188,7 @@
     <Component class="javax.swing.JButton" name="jButton2">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Java-Final/TiendaRopa/src/com/resources/edit.png"/>
+          <Image iconType="3" name="/com/resources/edit.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Editar"/>
       </Properties>
@@ -222,20 +199,13 @@
     <Component class="javax.swing.JButton" name="jButton3">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Java-Final/TiendaRopa/src/com/resources/remove.png"/>
+          <Image iconType="3" name="/com/resources/remove.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Eliminar"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
       </Events>
-    </Component>
-    <Component class="javax.swing.JLabel" name="Usuario">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Usuario"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="TxtUsuario">
     </Component>
     <Component class="javax.swing.JLabel" name="TxtRopa">
       <Properties>
@@ -247,24 +217,14 @@
         <Property name="text" type="java.lang.String" value="Articulo"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="Precio">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Precio"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JLabel" name="Cantidad">
       <Properties>
         <Property name="text" type="java.lang.String" value="Cantidad"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="TxtId">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TxtIdActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="TxtArticulo">
-    </Component>
-    <Component class="javax.swing.JTextField" name="TxtPrecio">
     </Component>
     <Component class="javax.swing.JTextField" name="TxtCantidad">
     </Component>

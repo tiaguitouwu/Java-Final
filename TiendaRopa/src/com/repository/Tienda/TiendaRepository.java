@@ -20,7 +20,7 @@ public class TiendaRepository implements ITiendaRepository{
     
     @Override
     public void save(Tienda obj) throws SQLException {
-        String sql = "INSERT INTO Tienda (descripciontienda, direccion, telefono, correo, usuario, fechaultmodificacion) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO Tienda (descripciontienda, direccion, telefono, correo, usuario, fechaultmodificacion) VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, obj.getDescripcionTienda());
             stmt.setString(2, obj.getDireccion());

@@ -29,4 +29,8 @@ public class PedidoCompraService {
     public void delete(int id)  throws SQLException {
         repository.delete(id);
     }
+    
+    public void update(PedidoCompra pedidoCompra) throws SQLException {
+        repository.update(pedidoCompra);
+    }
 }

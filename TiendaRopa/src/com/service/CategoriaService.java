@@ -29,4 +29,8 @@ public class CategoriaService {
     public void delete(int id)  throws SQLException {
         repository.delete(id);
     }
+    
+    public void update(Categoria categoria) throws SQLException {
+        repository.update(categoria);
+    }
 }
