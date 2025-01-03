@@ -25,16 +25,16 @@ public class ClienteController {
             cliente.setFechaUltModificacion(java.time.LocalDateTime.now());
 
             service.add(cliente);
-            System.out.println("Categoría creada exitosamente.");
+            System.out.println("Cliente creado exitosamente.");
         } catch (SQLException | IllegalArgumentException e) {
-            System.err.println("Error al crear la categoría: " + e.getMessage());
+            System.err.println("Error al crear el cliente: " + e.getMessage());
         }
     }
     public List<Cliente> listarCliente() {
         try {
             return service.findAll();
         } catch (SQLException e) {
-            System.err.println("Error al listar categorías: " + e.getMessage());
+            System.err.println("Error al listar clientes: " + e.getMessage());
             return List.of();
         }
     }
@@ -42,7 +42,7 @@ public class ClienteController {
         try {
             return service.findById(id);
         } catch (SQLException e) {
-            System.err.println("Error al obtener la categoría: " + e.getMessage());
+            System.err.println("Error al obtener los clientes: " + e.getMessage());
             return Optional.empty();
         }
     }
@@ -50,19 +50,19 @@ public class ClienteController {
     public void eliminarCliente(int id) {
         try {
             service.delete(id);
-            System.out.println("Categoría eliminada exitosamente.");
+            System.out.println("Cliente eliminado exitosamente.");
         } catch (SQLException | IllegalArgumentException e) {
-            System.err.println("Error al eliminar la categoría: " + e.getMessage());
+            System.err.println("Error al eliminar el cliente: " + e.getMessage());
         }
     }
     public void actualizarCliente(int id, String nombre, String apellido, String razonSocial, String ruc) {
         try {
             Cliente cliente = new Cliente(id, razonSocial, nombre, apellido, ruc, "AppUser", java.time.LocalDateTime.now());
             service.update(cliente);
-            JOptionPane.showMessageDialog(null, "Tienda creada exitosamente.");
+            JOptionPane.showMessageDialog(null, "Cliente actualizado exitosamente.");
         } catch (SQLException e) {
-            System.err.println("Error al actualizar la tienda: " + e.getMessage());
-            JOptionPane.showMessageDialog(null, "Error al actualizar la tienda:");
+            System.err.println("Error al actualizar el cliente: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al actualizar el cliente:");
         }
     }
 }

@@ -48,7 +48,8 @@ public class StockController {
     public void eliminarStock(int id) {
         try {
             stockService.delete(id);
-            System.out.println("Tienda eliminada exitosamente.");
+            System.out.println("Stock eliminado exitosamente.");
+            JOptionPane.showMessageDialog(null, "Stock eliminado exitosamente.");
         } catch (SQLException | IllegalArgumentException e) {
             System.err.println("Error al eliminar"+ e.getMessage());
         }

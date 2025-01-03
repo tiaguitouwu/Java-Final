@@ -34,16 +34,16 @@ public class RopaController {
             ropa.setFechaUltModificacion(java.time.LocalDateTime.now());
 
             ropaService.add(ropa);
-            System.out.println("Ropa creada exitosamente.");
+            System.out.println("Articulo creado exitosamente.");
         } catch (SQLException | IllegalArgumentException e) {
-            System.err.println("Error al crear la categoría: " + e.getMessage());
+            System.err.println("Error al crear el articulo: " + e.getMessage());
         }
     }
     public List<Ropa> listarCategoria() {
         try {
             return ropaService.findAll();
         } catch (SQLException e) {
-            System.err.println("Error al listar ropas: " + e.getMessage());
+            System.err.println("Error al listar articulos: " + e.getMessage());
             return List.of();
         }
     }
@@ -51,7 +51,7 @@ public class RopaController {
         try {
             return ropaService.findById(id);
         } catch (SQLException e) {
-            System.err.println("Error al obtener la articulo: " + e.getMessage());
+            System.err.println("Error al obtener el articulo: " + e.getMessage());
             return Optional.empty();
         }
     }
@@ -109,7 +109,7 @@ public class RopaController {
                 comboBox.putClientProperty(cat.getDescripcionCategoria(), cat.getId());
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al cargar las tallas: " + e.getMessage(),
+            JOptionPane.showMessageDialog(null, "Error al cargar las categorias: " + e.getMessage(),
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
