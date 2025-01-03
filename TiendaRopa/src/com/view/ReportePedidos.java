@@ -4,17 +4,30 @@
  */
 package com.view;
 
+import com.controllers.PedidoCompraController;
+import com.entity.PedidoCompra;
+import com.repository.PedidoCompra.PedidoCompraRepository;
+import com.service.PedidoCompraService;
+import java.util.List;
+import java.util.Optional;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Jen
  */
 public class ReportePedidos extends javax.swing.JFrame {
-
+    
+    PedidoCompraRepository pedidoCompraRepository = new PedidoCompraRepository();
+    PedidoCompraService pedidoCompraService = new PedidoCompraService(pedidoCompraRepository);
+    PedidoCompraController pedidoCompraController = new PedidoCompraController(pedidoCompraService);
     /**
      * Creates new form ReportePedidos
      */
     public ReportePedidos() {
         initComponents();
+        cargarTabla();
     }
 
     /**
@@ -38,6 +51,12 @@ public class ReportePedidos extends javax.swing.JFrame {
         jLabel2.setText("REPORTE DE PEDIDOS REALIZADOS");
 
         jLabel1.setText("ID Pedido");
+
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField1KeyPressed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -94,6 +113,70 @@ public class ReportePedidos extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
+        if (evt.getKeyCode() == evt.VK_ENTER) {
+        String inputText = jTextField1.getText().trim();
+        
+            if (inputText.isEmpty()) {
+                cargarTabla();
+            } else {
+                try {
+                    int pedidoId = Integer.parseInt(inputText); 
+
+                    Optional<PedidoCompra> pedidoOpt = pedidoCompraController.obtenerPedido(pedidoId);
+                    pedidoOpt.ifPresentOrElse(pedido -> {
+                    String[] columnNames = {"ID", "Nro. Pedido", "ID Proveedor", "ID Tienda", "Fecha Pedido", "Estado", "Usuario", "Fecha Mod."};
+
+                    DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+
+                    model.addRow(new Object[]{
+                        pedido.getId(),
+                        pedido.getNroPedido(),
+                        pedido.getIdProveedor(),
+                        pedido.getIdTienda(),
+                        pedido.getFechaPedido(),
+                        pedido.getEstado(),
+                        pedido.getUsuario(),
+                        pedido.getFechaUltModificacion()
+                    });
+
+                        jTable1.setModel(model);
+                    }, () -> {
+                        JOptionPane.showMessageDialog(null, "Pedido no encontrado");
+                    });
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "Por favor, ingrese un ID válido");
+                }
+            }
+        }
+    }
+
+        public void cargarTabla(){
+        List<PedidoCompra> pedidoCompraList = pedidoCompraController.listarPedido();
+        if (pedidoCompraList.isEmpty()) {
+            return;
+        }
+        String[] columnNames = {"ID", "Nro. Pedido", "ID Proveedor", "ID Tienda", "Fecha Pedido", "Estado", "Usuario", "Fecha Mod."};
+
+        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+
+        for (PedidoCompra pedido : pedidoCompraList) {
+            model.addRow(new Object[]{
+                        pedido.getId(),
+                        pedido.getNroPedido(),
+                        pedido.getIdProveedor(),
+                        pedido.getIdTienda(),
+                        pedido.getFechaPedido(),
+                        pedido.getEstado(),
+                        pedido.getUsuario(),
+                        pedido.getFechaUltModificacion()
+                    });
+        }
+
+        // Set the table model to jTable1
+        jTable1.setModel(model);
+    }//GEN-LAST:event_jTextField1KeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
