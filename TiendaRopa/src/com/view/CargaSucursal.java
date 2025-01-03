@@ -185,8 +185,8 @@ public class CargaSucursal extends javax.swing.JFrame {
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -194,7 +194,7 @@ public class CargaSucursal extends javax.swing.JFrame {
                 .addGap(19, 19, 19)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
@@ -221,13 +221,12 @@ public class CargaSucursal extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnGuardar))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnGuardar)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(59, 59, 59))))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -235,67 +234,73 @@ public class CargaSucursal extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         tiendaController.crearTienda(txtDescripcion.getText(), txtDireccion.getText(), txtMail.getText(), txtTelef.getText());
+        cargarTabla();
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        tiendaController.actualizarTienda(Integer.valueOf(txtId.getText()),txtDescripcion.getText(), txtDireccion.getText(), txtMail.getText(), txtTelef.getText());
+        tiendaController.actualizarTienda(Integer.valueOf(txtId.getText()),txtDescripcion.getText(), txtDireccion.getText(), txtTelef.getText(), txtMail.getText());
+        cargarTabla();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         tiendaController.eliminarTienda(Integer.valueOf(txtId.getText()));
+        cargarTabla();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void txtBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyPressed
-        if (evt.getKeyCode() == evt.VK_ENTER) {
-            Optional<Tienda> tiendaOpt = tiendaController.obtenerTienda(Integer.valueOf(txtBuscar.getText()));  // Get Tienda by ID
+            if (evt.getKeyCode() == evt.VK_ENTER) {
+            String inputText = txtBuscar.getText().trim(); 
 
-            tiendaOpt.ifPresentOrElse(tienda -> {
-            String[] columnNames = {"ID", "Descripción", "Usuario", "Fecha de Modificación"};
+            if (inputText.isEmpty()) {
+                cargarTabla();
+            } else {
+                try {
+                    int tiendaId = Integer.parseInt(inputText); 
 
-            // Create the table model
-            DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+                    Optional<Tienda> tiendaOpt = tiendaController.obtenerTienda(tiendaId);
 
-            // Add the Tienda data to the table model (for a single Tienda)
-            model.addRow(new Object[]{
-                    tienda.getId(),
-                    tienda.getDescripcionTienda(),
-                    tienda.getUsuario(),
-                    tienda.getFechaUltModificacion()
-            });
+                    tiendaOpt.ifPresentOrElse(tienda -> {
+                        String[] columnNames = {"ID", "Descripción", "Dirección", "Teléfono", "Usuario", "Fecha Mod."};
 
-            jTable1.setModel(model);
+                        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
 
+                        model.addRow(new Object[]{
+                            tienda.getId(),
+                            tienda.getDescripcionTienda(),
+                            tienda.getDireccion(),
+                            tienda.getTelefono(),
+                            tienda.getUsuario(),
+                            tienda.getFechaUltModificacion()
+                        });
 
-        }, () -> {
-            JOptionPane.showMessageDialog(null, "Tienda no encontrada");
-        });
+                        jTable1.setModel(model);
+                    }, () -> {
+                        JOptionPane.showMessageDialog(null, "Tienda no encontrada");
+                    });
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "Por favor, ingrese un ID válido");
+                }
+            }
         }
     }//GEN-LAST:event_txtBuscarKeyPressed
     private void cargarTabla() {
-        List<Tienda> tiendaList = tiendaController.listarTienda();  // Get the list of Tiendas
+        List<Tienda> tiendaList = tiendaController.listarTienda();  
 
-        // Check if the list is not empty
         if (tiendaList.isEmpty()) {
             return;
         }
-
-        // Column names for the table
-        String[] columnNames = {"ID", "Descripción", "Usuario", "Fecha de Modificación"};
-
-        // Create the table model
+        String[] columnNames = {"ID", "Descripción", "Dirección", "Teléfono", "Usuario", "Fecha Mod."};
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
-
-        // Iterate over the list of Tiendas and add rows to the table model
         for (Tienda tienda : tiendaList) {
             model.addRow(new Object[]{
                     tienda.getId(),
                     tienda.getDescripcionTienda(),
+                    tienda.getDireccion(),
+                    tienda.getTelefono(),
                     tienda.getUsuario(),
                     tienda.getFechaUltModificacion()
             });
         }
-
-        // Set the table model to jTable1
         jTable1.setModel(model);
     }
 
