@@ -124,7 +124,7 @@ public class ReportePedidos extends javax.swing.JFrame {
                 try {
                     int pedidoId = Integer.parseInt(inputText); 
 
-                    Optional<PedidoCompra> pedidoOpt = pedidoCompraController.obtenerPedido(pedidoId);
+                    Optional<PedidoCompra> pedidoOpt = pedidoCompraController.obtenerPedidoCompra(pedidoId);
                     pedidoOpt.ifPresentOrElse(pedido -> {
                     String[] columnNames = {"ID", "Nro. Pedido", "ID Proveedor", "ID Tienda", "Fecha Pedido", "Estado", "Usuario", "Fecha Mod."};
 
@@ -153,7 +153,7 @@ public class ReportePedidos extends javax.swing.JFrame {
     }
 
         public void cargarTabla(){
-        List<PedidoCompra> pedidoCompraList = pedidoCompraController.listarPedido();
+        List<PedidoCompra> pedidoCompraList = pedidoCompraController.listarPedidoCompra();
         if (pedidoCompraList.isEmpty()) {
             return;
         }

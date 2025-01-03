@@ -1,6 +1,8 @@
 package com.controllers;
 
+import com.entity.DetallePedidoCompra;
 import com.entity.PedidoCompra;
+import com.service.DetallePedidoCompraService;
 import com.service.PedidoCompraService;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -10,12 +12,18 @@ import javax.swing.JOptionPane;
 
 public class PedidoCompraController {
     private final PedidoCompraService pedidoCompraService;
+    private DetallePedidoCompraService servicio = null;
 
-    public PedidoCompraController(PedidoCompraService pedidoCompraService) {
-        this.pedidoCompraService = pedidoCompraService;
+    public PedidoCompraController(PedidoCompraService pedidoCompraServico) {
+        this.pedidoCompraService = pedidoCompraServico;
     }
     
-    public void crearPedidoCompra(String nropedido, int idProveedor, int idTienda) {
+    public PedidoCompraController(PedidoCompraService pedidoCompraServico, DetallePedidoCompraService servicio) {
+        this.pedidoCompraService = pedidoCompraServico;
+        this.servicio = servicio;
+    }
+    
+    public void crearPedidoCompra(String nropedido, int idProveedor, int idTienda, int idropa, int cantidad, int precio){
         try {
             PedidoCompra ped = new PedidoCompra();
             ped.setNroPedido(nropedido);
@@ -26,8 +34,10 @@ public class PedidoCompraController {
             ped.setFechaPedido(LocalDateTime.now());
             ped.setUsuario("AppUser");
             ped.setFechaUltModificacion(java.time.LocalDateTime.now());
-
             pedidoCompraService.add(ped);
+            
+            
+            
             JOptionPane.showMessageDialog(null, "Cargado exitosamente.");
         } catch (SQLException | IllegalArgumentException e) {
             System.err.println("Error al cargar " + e.getMessage());
@@ -66,6 +76,15 @@ public class PedidoCompraController {
         } catch (SQLException e) {
             System.err.println("Error al actualizar" + e.getMessage());
             JOptionPane.showMessageDialog(null, "Error al actualizar");
+        }
+    }
+    
+    public List<DetallePedidoCompra> listarDetallePedidoCompra() {
+        try {
+            return servicio.findAll();
+        } catch (SQLException e) {
+            System.err.println("Error al listar " + e.getMessage());
+            return List.of();
         }
     }
     
