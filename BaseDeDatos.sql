@@ -1,357 +1,161 @@
--- Tabla: Talla
-CREATE TABLE Talla (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    descripciontalla VARCHAR(100) NOT NULL,
-    usuario VARCHAR(100) NOT NULL,
-    fechaultmodificacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+-- tiendaropa.categoria definition
+
+CREATE TABLE `categoria` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `descripcioncategoria` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `usuario` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `fechaultmodificacion` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+-- tiendaropa.cliente definition
+
+CREATE TABLE `cliente` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `razonsocial` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `nombre` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `apellido` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `ruc` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
+  `usuario` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `fechaultmodificacion` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+-- tiendaropa.proveedor definition
+
+CREATE TABLE `proveedor` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `razonsocial` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `nombre` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `apellido` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `ruc` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
+  `usuario` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `fechaultmodificacion` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+-- tiendaropa.talla definition
+
+CREATE TABLE `talla` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `descripciontalla` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `usuario` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `fechaultmodificacion` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+-- tiendaropa.tienda definition
+
+CREATE TABLE `tienda` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `descripciontienda` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `direccion` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `telefono` varchar(15) COLLATE utf8mb4_general_ci NOT NULL,
+  `correo` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `usuario` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `fechaultmodificacion` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+-- tiendaropa.pedidocompra definition
+
+CREATE TABLE `pedidocompra` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `nropedido` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '01',
+  `idproveedor` int unsigned NOT NULL,
+  `idtienda` int unsigned NOT NULL,
+  `fechapedido` date NOT NULL,
+  `estado` int NOT NULL,
+  `usuario` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `fechaultmodificacion` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `idproveedor` (`idproveedor`),
+  KEY `idtienda` (`idtienda`),
+  CONSTRAINT `pedidocompra_ibfk_1` FOREIGN KEY (`idproveedor`) REFERENCES `proveedor` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `pedidocompra_ibfk_2` FOREIGN KEY (`idtienda`) REFERENCES `tienda` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+-- tiendaropa.ropa definition
+
+CREATE TABLE `ropa` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `descripcion` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `idtalla` int unsigned NOT NULL,
+  `idcategoria` int unsigned NOT NULL,
+  `usuario` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `fechaultmodificacion` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `idtalla` (`idtalla`),
+  KEY `idcategoria` (`idcategoria`),
+  CONSTRAINT `ropa_ibfk_1` FOREIGN KEY (`idtalla`) REFERENCES `talla` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `ropa_ibfk_2` FOREIGN KEY (`idcategoria`) REFERENCES `categoria` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+-- tiendaropa.stock definition
+
+CREATE TABLE `stock` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `idtienda` int unsigned NOT NULL,
+  `idropa` int unsigned NOT NULL,
+  `cantidadexistencia` int NOT NULL,
+  `fechaultmodificacion` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `idtienda` (`idtienda`),
+  KEY `idropa` (`idropa`),
+  CONSTRAINT `stock_ibfk_1` FOREIGN KEY (`idtienda`) REFERENCES `tienda` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `stock_ibfk_2` FOREIGN KEY (`idropa`) REFERENCES `ropa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Tabla: Categoria
-CREATE TABLE Categoria (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    descripcioncategoria VARCHAR(100) NOT NULL,
-    usuario VARCHAR(100) NOT NULL,
-    fechaultmodificacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Tabla: Ropa
-CREATE TABLE Ropa (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    descripcion VARCHAR(255) NOT NULL,
-    idtalla INT UNSIGNED NOT NULL,
-    idcategoria INT UNSIGNED NOT NULL,
-    usuario VARCHAR(100) NOT NULL,
-    fechaultmodificacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (idtalla) REFERENCES Talla(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (idcategoria) REFERENCES Categoria(id) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+-- tiendaropa.detallepedidocompra definition
 
--- Tabla: Tienda
-CREATE TABLE Tienda (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    descripciontienda VARCHAR(255) NOT NULL,
-    direccion VARCHAR(255) NOT NULL,
-    telefono VARCHAR(15) NOT NULL,
-    correo VARCHAR(255) NOT NULL,
-    usuario VARCHAR(100) NOT NULL,
-    fechaultmodificacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+CREATE TABLE `detallepedidocompra` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `idpedidocompra` int unsigned NOT NULL,
+  `idropa` int unsigned NOT NULL,
+  `precio` decimal(10,2) NOT NULL,
+  `cantidad` int NOT NULL,
+  `usuario` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `fechaultmodificacion` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `idpedidocompra` (`idpedidocompra`),
+  KEY `idropa` (`idropa`),
+  CONSTRAINT `detallepedidocompra_ibfk_1` FOREIGN KEY (`idpedidocompra`) REFERENCES `pedidocompra` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `detallepedidocompra_ibfk_2` FOREIGN KEY (`idropa`) REFERENCES `ropa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Tabla: Stock
-CREATE TABLE Stock (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    idtienda INT UNSIGNED NOT NULL,
-    idropa INT UNSIGNED NOT NULL,
-    cantidadexistencia INT NOT NULL,
-    fechaultmodificacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (idtienda) REFERENCES Tienda(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (idropa) REFERENCES Ropa(id) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Tabla: TipoComprobante
-CREATE TABLE TipoComprobante (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    descripciontipocomprobante VARCHAR(255) NOT NULL,
-    esventa BOOLEAN NOT NULL,
-    escompra BOOLEAN NOT NULL,
-    usuario VARCHAR(100) NOT NULL,
-    fechaultmodificacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+-- tiendaropa.facturacompra definition
 
--- Tabla: Timbrado
-CREATE TABLE Timbrado (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    idtipocomprobante INT UNSIGNED NOT NULL,
-    iniciovigencia DATE NOT NULL,
-    finvigencia DATE NOT NULL,
-    usuario VARCHAR(100) NOT NULL,
-    fechaultmodificacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (idtipocomprobante) REFERENCES TipoComprobante(id) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+CREATE TABLE `facturacompra` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `idpedidocompra` int unsigned NOT NULL,
+  `fechafactura` date NOT NULL,
+  `estado` int NOT NULL,
+  `usuario` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `fechaultmodificacion` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `nrofactura` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idpedidocompra` (`idpedidocompra`),
+  CONSTRAINT `facturacompra_ibfk_1` FOREIGN KEY (`idpedidocompra`) REFERENCES `pedidocompra` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Tabla: Proveedor
-CREATE TABLE Proveedor (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    razonsocial VARCHAR(255) NOT NULL,
-    nombre VARCHAR(100),
-    apellido VARCHAR(100),
-    ruc VARCHAR(20) NOT NULL,
-    usuario VARCHAR(100) NOT NULL,
-    fechaultmodificacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Tabla: PedidoCompra
-CREATE TABLE PedidoCompra (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    nropedido VARCHAR(50) NOT NULL,
-    idproveedor INT UNSIGNED NOT NULL,
-    idtienda INT UNSIGNED NOT NULL,
-    fechapedido DATE NOT NULL,
-    estado INT NOT NULL,
-    usuario VARCHAR(100) NOT NULL,
-    fechaultmodificacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (idproveedor) REFERENCES Proveedor(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (idtienda) REFERENCES Tienda(id) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Tabla: DetallePedidoCompra
-CREATE TABLE DetallePedidoCompra (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    idpedidocompra INT UNSIGNED NOT NULL,
-    idropa INT UNSIGNED NOT NULL,
-    precio DECIMAL(10,2) NOT NULL,
-    cantidad INT NOT NULL,
-    usuario VARCHAR(100) NOT NULL,
-    fechaultmodificacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (idpedidocompra) REFERENCES PedidoCompra(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (idropa) REFERENCES Ropa(id) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- Tabla: FacturaCompra
-CREATE TABLE FacturaCompra (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    idpedidocompra INT UNSIGNED NOT NULL,
-    fechafactura DATE NOT NULL,
-    idtimbrado INT UNSIGNED NOT NULL,
-    estado INT NOT NULL,
-    usuario VARCHAR(100) NOT NULL,
-    fechaultimamodifcacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (idpedidocompra) REFERENCES PedidoCompra(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (idtimbrado) REFERENCES Timbrado(id) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- Tabla: DetalleFacturaCompra
-CREATE TABLE DetalleFacturaCompra (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    idfacturacompra INT UNSIGNED NOT NULL,
-    idropa INT UNSIGNED NOT NULL,
-    precio DECIMAL(10,2) NOT NULL,
-    cantidad INT NOT NULL,
-    usuario VARCHAR(100) NOT NULL,
-    fechaultmodificacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (idfacturacompra) REFERENCES FacturaCompra(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (idropa) REFERENCES Ropa(id) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- Tabla: Cliente
-CREATE TABLE Cliente (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    razonsocial VARCHAR(255) NOT NULL,
-    nombre VARCHAR(100),
-    apellido VARCHAR(100),
-    ruc VARCHAR(20) NOT NULL,
-    usuario VARCHAR(100) NOT NULL,
-    fechaultmodificacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- Tabla: PedidoVenta
-CREATE TABLE PedidoVenta (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    idcliente INT UNSIGNED NOT NULL,
-    idtienda INT UNSIGNED NOT NULL,
-    fechapedido DATE NOT NULL,
-    estado INT NOT NULL,
-    usuario VARCHAR(100) NOT NULL,
-    fechaultmodificacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (idcliente) REFERENCES Cliente(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (idtienda) REFERENCES Tienda(id) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- Tabla: DetallePedidoVenta
-CREATE TABLE DetallePedidoVenta (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    idpedidoventa INT UNSIGNED NOT NULL,
-    idropa INT UNSIGNED NOT NULL,
-    precio DECIMAL(10,2) NOT NULL,
-    cantidad INT NOT NULL,
-    usuario VARCHAR(100) NOT NULL,
-    fechaultmodificacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (idpedidoventa) REFERENCES PedidoVenta(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (idropa) REFERENCES Ropa(id) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- Tabla: FacturaVenta
-CREATE TABLE FacturaVenta (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    idpedidoventa INT UNSIGNED NOT NULL,
-    fechafactura DATE NOT NULL,
-    idtimbrado INT UNSIGNED NOT NULL,
-    estado INT NOT NULL,
-    usuario VARCHAR(100) NOT NULL,
-    fechaultmodificacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (idpedidoventa) REFERENCES PedidoVenta(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (idtimbrado) REFERENCES Timbrado(id) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- Tabla: DetalleFacturaVenta
-CREATE TABLE DetalleFacturaVenta (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    idfacturaventa INT UNSIGNED NOT NULL,
-    idropa INT UNSIGNED NOT NULL,
-    precio DECIMAL(10,2) NOT NULL,
-    cantidad INT NOT NULL,
-    usuario VARCHAR(100) NOT NULL,
-    fechaultmodificacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (idfacturaventa) REFERENCES FacturaVenta(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (idropa) REFERENCES Ropa(id) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- Tabla: Stock
-CREATE TABLE Stock (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    idtienda INT UNSIGNED NOT NULL,
-    idropa INT UNSIGNED NOT NULL,
-    cantidadexistencia INT NOT NULL,
-    fechaultmodificacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (idtienda) REFERENCES Tienda(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (idropa) REFERENCES Ropa(id) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- Tabla: TipoComprobante
-CREATE TABLE TipoComprobante (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    descripciontipocomprobante VARCHAR(255) NOT NULL,
-    esventa BOOLEAN NOT NULL,
-    escompra BOOLEAN NOT NULL,
-    usuario VARCHAR(100) NOT NULL,
-    fechaultmodificacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- Tabla: Timbrado
-CREATE TABLE Timbrado (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    idtipocomprobante INT UNSIGNED NOT NULL,
-    iniciovigencia DATE NOT NULL,
-    finvigencia DATE NOT NULL,
-    usuario VARCHAR(100) NOT NULL,
-    fechaultmodificacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (idtipocomprobante) REFERENCES TipoComprobante(id) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- Tabla: Proveedor
-CREATE TABLE Proveedor (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    razonsocial VARCHAR(255) NOT NULL,
-    nombre VARCHAR(100),
-    apellido VARCHAR(100),
-    ruc VARCHAR(20) NOT NULL,
-    usuario VARCHAR(100) NOT NULL,
-    fechaultmodificacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- Tabla: PedidoCompra
-CREATE TABLE PedidoCompra (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    nropedido VARCHAR(50) NOT NULL,
-    idproveedor INT UNSIGNED NOT NULL,
-    idtienda INT UNSIGNED NOT NULL,
-    fechapedido DATE NOT NULL,
-    estado INT NOT NULL,
-    usuario VARCHAR(100) NOT NULL,
-    fechaultmodificacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (idproveedor) REFERENCES Proveedor(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (idtienda) REFERENCES Tienda(id) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- Tabla: DetallePedidoCompra
-CREATE TABLE DetallePedidoCompra (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    idpedidocompra INT UNSIGNED NOT NULL,
-    idropa INT UNSIGNED NOT NULL,
-    precio DECIMAL(10,2) NOT NULL,
-    cantidad INT NOT NULL,
-    usuario VARCHAR(100) NOT NULL,
-    fechaultmodificacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (idpedidocompra) REFERENCES PedidoCompra(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (idropa) REFERENCES Ropa(id) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- Tabla: FacturaCompra
-CREATE TABLE FacturaCompra (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    idpedidocompra INT UNSIGNED NOT NULL,
-    fechafactura DATE NOT NULL,
-    idtimbrado INT UNSIGNED NOT NULL,
-    estado INT NOT NULL,
-    usuario VARCHAR(100) NOT NULL,
-    fechaultimamodifcacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (idpedidocompra) REFERENCES PedidoCompra(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (idtimbrado) REFERENCES Timbrado(id) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- Tabla: DetalleFacturaCompra
-CREATE TABLE DetalleFacturaCompra (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    idfacturacompra INT UNSIGNED NOT NULL,
-    idropa INT UNSIGNED NOT NULL,
-    precio DECIMAL(10,2) NOT NULL,
-    cantidad INT NOT NULL,
-    usuario VARCHAR(100) NOT NULL,
-    fechaultmodificacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (idfacturacompra) REFERENCES FacturaCompra(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (idropa) REFERENCES Ropa(id) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- Tabla: Cliente
-CREATE TABLE Cliente (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    razonsocial VARCHAR(255) NOT NULL,
-    nombre VARCHAR(100),
-    apellido VARCHAR(100),
-    ruc VARCHAR(20) NOT NULL,
-    usuario VARCHAR(100) NOT NULL,
-    fechaultmodificacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- Tabla: PedidoVenta
-CREATE TABLE PedidoVenta (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-	nropedido varchar(50) NOT NULL,
-    idcliente INT UNSIGNED NOT NULL,
-    idtienda INT UNSIGNED NOT NULL,
-    fechapedido DATE NOT NULL,
-    estado INT NOT NULL,
-    usuario VARCHAR(100) NOT NULL,
-    fechaultmodificacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (idcliente) REFERENCES Cliente(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (idtienda) REFERENCES Tienda(id) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- Tabla: DetallePedidoVenta
-CREATE TABLE DetallePedidoVenta (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    idpedidoventa INT UNSIGNED NOT NULL,
-    idropa INT UNSIGNED NOT NULL,
-    precio DECIMAL(10,2) NOT NULL,
-    cantidad INT NOT NULL,
-    usuario VARCHAR(100) NOT NULL,
-    fechaultmodificacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (idpedidoventa) REFERENCES PedidoVenta(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (idropa) REFERENCES Ropa(id) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- Tabla: FacturaVenta
-CREATE TABLE FacturaVenta (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    idpedidoventa INT UNSIGNED NOT NULL,
-    fechafactura DATE NOT NULL,
-    idtimbrado INT UNSIGNED NOT NULL,
-    estado INT NOT NULL,
-    usuario VARCHAR(100) NOT NULL,
-    fechaultmodificacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (idpedidoventa) REFERENCES PedidoVenta(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (idtimbrado) REFERENCES Timbrado(id) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- Tabla: DetalleFacturaVenta
-CREATE TABLE DetalleFacturaVenta (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    idfacturaventa INT UNSIGNED NOT NULL,
-    idropa INT UNSIGNED NOT NULL,
-    precio DECIMAL(10,2) NOT NULL,
-    cantidad INT NOT NULL,
-    usuario VARCHAR(100) NOT NULL,
-    fechaultmodificacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (idfacturaventa) REFERENCES FacturaVenta(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (idropa) REFERENCES Ropa(id) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+--INSERTAR DATOS NECESARIOS
+INSERT INTO tiendaropa.talla
+(id, descripciontalla, usuario, fechaultmodificacion)
+VALUES(1, 'Talla S', 'adsf', '2024-12-30 23:51:34');
+INSERT INTO tiendaropa.talla
+(id, descripciontalla, usuario, fechaultmodificacion)
+VALUES(2, 'Talla P', 'adsf', '2024-12-30 23:51:34');
+INSERT INTO tiendaropa.talla
+(id, descripciontalla, usuario, fechaultmodificacion)
+VALUES(3, 'Talla M', 'adsf', '2024-12-30 23:51:34');
