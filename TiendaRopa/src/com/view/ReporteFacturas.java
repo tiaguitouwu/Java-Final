@@ -4,6 +4,7 @@
  */
 package com.view;
 
+import com.controllers.FacturaCompraController;
 import com.entity.FacturaCompra;
 import com.repository.FacturaCompra.FacturaCompraRepository;
 import com.service.FacturaCompraService;
@@ -44,7 +45,7 @@ public class ReporteFacturas extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -124,7 +125,7 @@ public class ReporteFacturas extends javax.swing.JFrame {
                 try {
                     int facturaId = Integer.parseInt(inputText); 
 
-                    Optional<FacturaCompra> facturaOpt = facturaController.obtenerFactura(facturaId);
+                    Optional<FacturaCompra> facturaOpt = facturaController.obtenerFacturaCompra(facturaId);
                     facturaOpt.ifPresentOrElse(factura -> {
                         String[] columnNames = {"ID", "ID Pedido", "Fecha", "Estado", "Usuario", "Fecha Mod."};
 
@@ -151,7 +152,7 @@ public class ReporteFacturas extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1KeyPressed
 
     public void cargarTabla(){
-        List<FacturaCompra> facturaList = facturaController.listarFactura();
+        List<FacturaCompra> facturaList = facturaController.listarFacturaCompra();
         if (facturaList.isEmpty()) {
             return;
         }

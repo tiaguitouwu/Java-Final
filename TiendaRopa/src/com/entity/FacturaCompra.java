@@ -5,6 +5,15 @@ import java.time.LocalDateTime;
 public class FacturaCompra {
     private int id;
     private int idPedidoCompra;
+    private String nroFactura;
+
+    public String getNroFactura() {
+        return nroFactura;
+    }
+
+    public void setNroFactura(String nroFactura) {
+        this.nroFactura = nroFactura;
+    }
     private LocalDateTime fechaFactura;
     private int estado;
     private String usuario;
@@ -13,8 +22,9 @@ public class FacturaCompra {
     public FacturaCompra(){
     }
 
-    public FacturaCompra(int id, int idPedidoCompra, LocalDateTime fechaFactura, int estado, String usuario, LocalDateTime fechaUltModificacion) {
+    public FacturaCompra(int id, int idPedidoCompra, LocalDateTime fechaFactura, int estado, String usuario, LocalDateTime fechaUltModificacion, String nrofactura) {
         this.id = id;
+        this.nroFactura = nrofactura;
         this.idPedidoCompra = idPedidoCompra;
         this.fechaFactura = fechaFactura;
         this.estado = estado;

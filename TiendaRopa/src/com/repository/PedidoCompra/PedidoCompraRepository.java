@@ -20,12 +20,12 @@ public class PedidoCompraRepository implements IPedidoCompraRepository{
     
     @Override
     public void save(PedidoCompra obj) throws SQLException {
-        String sql = "INSERT INTO PedidoCompra (nropedido, idproveedor, idtienda, fechapedido, estado, usuario, fechaultmodificacion) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO PedidoCompra ( idproveedor, idtienda, fechapedido, estado, usuario, fechaultmodificacion) VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, obj.getNroPedido());
-            stmt.setObject(2, obj.getIdProveedor());
-            stmt.setInt(3, obj.getIdTienda());
-            stmt.setObject(4, obj.getFechaPedido());
+            //stmt.setString(1, obj.getNroPedido());
+            stmt.setObject(1, obj.getIdProveedor());
+            stmt.setInt(2, obj.getIdTienda());
+            stmt.setObject(3, obj.getFechaPedido());
             stmt.setInt(4, obj.getEstado());
             stmt.setString(5, obj.getUsuario());
             stmt.setObject(6, obj.getFechaUltModificacion());
@@ -81,16 +81,15 @@ public class PedidoCompraRepository implements IPedidoCompraRepository{
 
     @Override
     public void update(PedidoCompra obj) throws SQLException {
-        String sql = "UPDATE PedidoCompra SET nropedido = ?, idproveedor = ?, idtienda = ?, fechapedido = ?, estado = ?, usuario = ?, fechaultmodificacion = ? WHERE id = ?";
+        String sql = "UPDATE PedidoCompra SET idproveedor = ?, idtienda = ?, fechapedido = ?, estado = ?, usuario = ?, fechaultmodificacion = ? WHERE id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, obj.getNroPedido());
-            stmt.setInt(2, obj.getIdProveedor());
-            stmt.setInt(3, obj.getIdTienda());
-            stmt.setInt(4, obj.getEstado());
-            stmt.setObject(5, obj.getFechaPedido());
-            stmt.setString(6, obj.getUsuario());
-            stmt.setObject(7, obj.getFechaUltModificacion());
-            stmt.setInt(8, obj.getId());
+            stmt.setInt(1, obj.getIdProveedor());
+            stmt.setInt(2, obj.getIdTienda());
+            stmt.setInt(3, obj.getEstado());
+            stmt.setObject(4, obj.getFechaPedido());
+            stmt.setString(5, obj.getUsuario());
+            stmt.setObject(6, obj.getFechaUltModificacion());
+            stmt.setInt(7, obj.getId());
             stmt.executeUpdate();
         }
     }

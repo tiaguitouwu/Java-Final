@@ -19,13 +19,14 @@ public class FacturaCompraRepository implements IFacturaCompraRepository {
     }
     @Override
     public void save(FacturaCompra obj) throws SQLException {
-        String sql = "INSERT INTO FacturaCompra (idpedidocompra, fechafactura, estado, usuario, fechaultmodificacion) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO FacturaCompra (idpedidocompra, nrofactura, fechafactura, estado, usuario, fechaultmodificacion) VALUES (?,?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, obj.getIdPedidoCompra());
-            stmt.setObject(2, obj.getFechaFactura());
-            stmt.setInt(3, obj.getEstado());
-            stmt.setString(4, obj.getUsuario());
-            stmt.setObject(5, obj.getFechaUltModificacion());
+            stmt.setInt(2, obj.getIdPedidoCompra());
+            stmt.setObject(3, obj.getFechaFactura());
+            stmt.setInt(4, obj.getEstado());
+            stmt.setString(5, obj.getUsuario());
+            stmt.setObject(6, obj.getFechaUltModificacion());
             stmt.executeUpdate();
         }
     }

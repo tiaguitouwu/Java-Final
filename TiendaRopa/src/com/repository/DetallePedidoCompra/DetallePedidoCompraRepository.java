@@ -33,7 +33,7 @@ public class DetallePedidoCompraRepository implements IDetallePedidoCompraReposi
 
     @Override
     public Optional<DetallePedidoCompra> findById(int id) throws SQLException {
-        String sql = "SELECT * FROM DetallePedidoCompra WHERE id = ?";
+        String sql = "SELECT * FROM DetallePedidoCompra WHERE idpedidocompra = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, id);
             try (ResultSet rs = stmt.executeQuery()) {
